@@ -29,7 +29,7 @@ const Platforms = () => {
   const numItems = platformContent.length;
   const segment = 1 / numItems;
   const transitionOverlap = 0.05;
-  const radius = 250; // The radius of the circular path
+  const radius = 1200; // The radius of the circular path
 
   // 1. Master angle based on scroll (Clockwise, full rotation)
   const currentAngle = useTransform(scrollYProgress, [0, 1], [0, 360]); // Use full 360 range
@@ -40,10 +40,21 @@ const Platforms = () => {
   const highlightThreshold = 30; // Degrees within which to be fully highlighted/visible
   const fadeThreshold = 60;    // Degrees over which to fade to inactive/invisible state
 
+  // Calculate angles for semicircle arrangement (90 to -90 degrees, top to bottom)
+  const angleStep = numItems > 1 ? 180 / (numItems - 1) : 0;
+  const startAngle = 90; // Start from +90 degrees (top)
+
+  // Add an offset to rotate the entire starting layout
+  const rotationOffset = 330; // Degrees to shift (Try 270 for 7 o'clock)
+  const highlightTargetAngle = (0 + rotationOffset) % 360; // New target angle for highlighting
+
+  // Horizontal shift for the wheel's center
+  const horizontalOffset = 1250; // Pixels to shift right
+
   return (
     // Wrap the entire section in the client-only wrapper
     <ClientOnlyWrapper>
-      <section ref={targetRef} className="relative h-[400vh] bg-neutral-100">
+      <section ref={targetRef} className="relative h-[600vh] bg-neutral-100">
         <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center bg-white">
           <div className="container mx-auto flex gap-8 relative h-full">
 
@@ -56,15 +67,15 @@ const Platforms = () => {
                 {/* Map over transforms derived within the right block map */}
                 {platformContent.map((platform, index) => {
                   // Need to calculate angleDiff here too for text visibility
-                  const baseAngle = 180 + index * (360 / numItems);
+                  const baseAngle = startAngle - index * angleStep; // Reverse order: 90, 90-step, ...
                   const angleDiff = useTransform(currentAngle, angle => {
-                      let currentBlockAngle = (baseAngle + angle) % 360;
+                      let currentBlockAngle = (baseAngle + angle + rotationOffset) % 360; // Apply offset
                       if (currentBlockAngle < 0) currentBlockAngle += 360;
-                      let diff = Math.abs(currentBlockAngle - 180);
+                      let diff = Math.abs(currentBlockAngle - highlightTargetAngle); // Check distance to new target angle
                       if (diff > 180) diff = 360 - diff; // Use shortest distance
                       return diff;
                   });
-                  // Text fades completely out when block is not near 9 o'clock
+                  // Text fades completely out when block is not near 0 degrees (right side)
                   const textOpacity = useTransform(angleDiff, [0, highlightThreshold, fadeThreshold], [1, 1, 0], { clamp: true });
 
                   return (
@@ -87,16 +98,17 @@ const Platforms = () => {
             {/* Right Block Area - Angle-Based Highlighting */}
             <div className="flex-1 flex justify-center items-center relative">
               {platformContent.map((_, index) => {
-                const baseAngle = 180 + index * (360 / numItems);
-                const x = useTransform(currentAngle, angle => radius * Math.cos((baseAngle + angle) * Math.PI / 180));
-                const y = useTransform(currentAngle, angle => radius * Math.sin((baseAngle + angle) * Math.PI / 180));
-                const blockRotate = useTransform(currentAngle, angle => (baseAngle + angle));
+                const baseAngle = startAngle - index * angleStep; // Reverse order: 90, 90-step, ...
+                // Apply offset to positioning and rotation
+                const x = useTransform(currentAngle, angle => horizontalOffset + radius * Math.cos((baseAngle + angle + rotationOffset) * Math.PI / 180)); // Add horizontal offset
+                const y = useTransform(currentAngle, angle => radius * Math.sin((baseAngle + angle + rotationOffset) * Math.PI / 180));
+                const blockRotate = useTransform(currentAngle, angle => (baseAngle + angle + rotationOffset));
                 const contentRotate = useTransform(blockRotate, r => -r);
 
                 const angleDiff = useTransform(currentAngle, angle => {
-                  let currentBlockAngle = (baseAngle + angle) % 360;
+                  let currentBlockAngle = (baseAngle + angle + rotationOffset) % 360; // Apply offset
                   if (currentBlockAngle < 0) currentBlockAngle += 360;
-                  let diff = Math.abs(currentBlockAngle - 180);
+                  let diff = Math.abs(currentBlockAngle - highlightTargetAngle); // Check distance to new target angle
                   if (diff > 180) diff = 360 - diff; // Use shortest distance
                   return diff;
                 });
@@ -108,7 +120,7 @@ const Platforms = () => {
                 return (
                   <motion.div
                     key={`block-${index}`}
-                    className="absolute w-64 h-40 bg-slate-400 rounded-2xl flex items-center justify-center text-white shadow-lg origin-center"
+                    className="absolute w-[800px] h-[550px] bg-slate-400 rounded-2xl flex items-center justify-center text-white shadow-lg origin-center"
                     style={{
                       x, y, rotate: blockRotate,
                       opacity: highlightOpacity,
