@@ -1,11 +1,13 @@
 import { Section } from '@/components/Section';
 import { Hero } from './Hero';
+import ThreeD from './ThreeD';
 
 export default function Home() {
   return (
     <>
       <Section className="container mx-auto">
         <Hero />
+        <ThreeD />
       </Section>
 
       <Section className="container mx-auto mt-20">
