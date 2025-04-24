@@ -3,17 +3,21 @@ import { Hero } from './Hero';
 import ThreeD from './ThreeD';
 import LogoSlider from './LogoSlider';
 import Experience from './Experience';
+import Platforms from './Platforms';
 
 export default function Home() {
   return (
     <>
       <Section className="container mx-auto">
+        <div className="absolute top-0 transform left-1/2 -translate-x-1/2 -translate-y-[80%] w-96 h-96 bg-primary/30 rounded-full blur-3xl opacity-99 z-0"></div>
         <Hero />
       </Section>
 
       <LogoSlider />
 
       <Experience />
+
+      <Platforms />
 
       <Section className="container mx-auto mt-20">
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pretium erat id mauris faucibus, nec vestibulum erat molestie. Nullam sed maximus ipsum, vitae rhoncus dolor. Vivamus pulvinar neque eu mi vestibulum fermentum. Nullam scelerisque neque sit amet tempor suscipit. Maecenas eget posuere eros. Cras mattis justo et aliquet egestas. Nunc in mollis turpis, eu scelerisque ante. Donec mollis lacinia sem. Pellentesque malesuada scelerisque libero et posuere. Curabitur quis eleifend arcu, ut porttitor lacus. Pellentesque sed viverra elit, id efficitur lacus.</p>
