@@ -1,4 +1,6 @@
 import React from 'react';
+import { Button } from '../../components/Button';
+import { User, Mail } from 'lucide-react';
 
 const ColorSwatch = ({ name, className, hexValue }: { name: string; className: string; hexValue: string }) => (
   <div className="mb-4 flex items-center">
@@ -11,7 +13,7 @@ const ColorSwatch = ({ name, className, hexValue }: { name: string; className: s
   </div>
 );
 
-export default function ColorsShowcasePage() {
+export default function ComponentsPage() {
   const colors = [
     { name: 'Primary', className: 'bg-primary', hex: '#259EE5' },
     { name: 'Primary Dark', className: 'bg-primary-dark', hex: '#0C004B' },
@@ -33,7 +35,9 @@ export default function ColorsShowcasePage() {
 
   return (
     <main className="container mx-auto p-8">
-      <h1 className="mb-8 text-3xl font-bold text-primary-dark">Color Palette Showcase</h1>
+      <h1 className="mb-8 text-3xl font-bold text-primary-dark">Component Showcase</h1>
+      
+      <h2 className="mt-12 mb-4 text-2xl font-semibold text-primary-dark">Color Palette</h2>
       <div className="grid grid-cols-1 gap-x-8 md:grid-cols-2 lg:grid-cols-3">
         {colors.map((color) => (
           <ColorSwatch 
@@ -66,6 +70,25 @@ export default function ColorsShowcasePage() {
             Primary with 50% opacity over Secondary
         </div>
        </div>
+
+      <h2 className="mt-12 mb-4 text-2xl font-semibold text-primary-dark">Buttons</h2>
+      <div className="space-y-4">
+        <h3 className="text-lg font-medium text-foreground-medium">Default Variant</h3>
+        <div className="flex flex-wrap items-center gap-4">
+          <Button size="large">Large Button</Button>
+          <Button size="medium">Medium Button</Button>
+          <Button size="small">Small Button</Button>
+          <Button size="large" iconLeft={<User />}>Large w/ Icon</Button>
+          <Button iconLeft={<User />} iconRight={<Mail />}>Medium Icons</Button>
+        </div>
+        <h3 className="text-lg font-medium text-foreground-medium">Ghost Variant</h3>
+        <div className="flex flex-wrap items-center gap-4">
+          <Button variant="ghost" size="large">Large Ghost</Button>
+          <Button variant="ghost" size="medium">Medium Ghost</Button>
+          <Button variant="ghost" size="small">Small Ghost</Button>
+          <Button variant="ghost" size="small" iconRight={<User />}>Small Ghost Icon</Button>
+        </div>
+      </div>
     </main>
   );
 } 
