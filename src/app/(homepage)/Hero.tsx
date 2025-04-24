@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Button } from '@/components/Button';
 
-const texts = ["For Customers", "For Users"];
+const texts = ["For Customers", "For Users", "For Partners"];
 
 export const Hero = () => {
   const [index, setIndex] = useState(0);
@@ -26,7 +26,7 @@ export const Hero = () => {
 
   return (
     <div className="py-40">
-      <Heading className="text-[130px] !leading-[130px]">
+      <Heading as="h1" className="text-[130px] !leading-[130px]">
         Loyalty & Engagement <br />
         <AnimatePresence mode="wait">
           <motion.span

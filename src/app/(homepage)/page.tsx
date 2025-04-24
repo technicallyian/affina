@@ -1,6 +1,8 @@
 import { Section } from '@/components/Section';
 import { Hero } from './Hero';
 import ThreeD from './ThreeD';
+import LogoSlider from './LogoSlider';
+import Experience from './Experience';
 
 export default function Home() {
   return (
@@ -8,6 +10,10 @@ export default function Home() {
       <Section className="container mx-auto">
         <Hero />
       </Section>
+
+      <LogoSlider />
+
+      <Experience />
 
       <Section className="container mx-auto mt-20">
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pretium erat id mauris faucibus, nec vestibulum erat molestie. Nullam sed maximus ipsum, vitae rhoncus dolor. Vivamus pulvinar neque eu mi vestibulum fermentum. Nullam scelerisque neque sit amet tempor suscipit. Maecenas eget posuere eros. Cras mattis justo et aliquet egestas. Nunc in mollis turpis, eu scelerisque ante. Donec mollis lacinia sem. Pellentesque malesuada scelerisque libero et posuere. Curabitur quis eleifend arcu, ut porttitor lacus. Pellentesque sed viverra elit, id efficitur lacus.</p>
