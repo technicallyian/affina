@@ -4,6 +4,7 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from "motion/react"; // Import motion
 import { Section } from '@/components/Section'; // Keep existing Section if needed, or replace outer tag
 import { Heading } from '@/components/typography/Heading';
+import ClientOnlyWrapper from '@/components/ClientOnlyWrapper'; // Import the wrapper
 
 // Placeholder data for content and blocks
 const platformContent = [
@@ -20,114 +21,112 @@ const Platforms = () => {
   // Initialize useScroll - targeting the main section
   const { scrollYProgress } = useScroll({
     target: targetRef,
-    offset: ["start start", "end end"], // Animate from the start of the section to the end
+    offset: ["start end", "end start"], // Animate while the section is intersecting the viewport
   });
 
-  // --- Trigonometric Positioning Approach ---
+  // --- Restore Trigonometric Positioning ---
 
   const numItems = platformContent.length;
   const segment = 1 / numItems;
   const transitionOverlap = 0.05;
   const radius = 250; // The radius of the circular path
 
-  // 1. Master angle based on scroll (Clockwise)
-  const currentAngle = useTransform(scrollYProgress, [0, 1], [0, 270]); // Changed to positive range
+  // 1. Master angle based on scroll (Clockwise, full rotation)
+  const currentAngle = useTransform(scrollYProgress, [0, 1], [0, 360]); // Use full 360 range
 
-  // 2. Opacity for left content
-  const opacities = platformContent.map((_, index) => {
-    const startTime = index * segment;
-    const endTime = startTime + segment;
-    const fadeInEndTime = Math.min(startTime + transitionOverlap, (startTime + endTime) / 2);
-    const fadeOutStartTime = Math.max(endTime - transitionOverlap, (startTime + endTime) / 2);
-    return useTransform(scrollYProgress, [startTime, fadeInEndTime, fadeOutStartTime, endTime], [0, 1, 1, 0]);
-  });
-
-  // 3. Subtle highlighting transforms based on scroll segments
+  // 3. Angle-based Highlighting & Text Opacity Logic
   const inactiveOpacity = 0.8;
   const inactiveScale = 0.95;
-  const highlightOpacities = platformContent.map((_, index) => {
-      const startTime = index * segment;
-      const endTime = startTime + segment;
-      const fadeInEndTime = Math.min(startTime + transitionOverlap, (startTime + endTime) / 2);
-      const fadeOutStartTime = Math.max(endTime - transitionOverlap, (startTime + endTime) / 2);
-      return useTransform(scrollYProgress, [startTime, fadeInEndTime, fadeOutStartTime, endTime], [inactiveOpacity, 1, 1, inactiveOpacity]);
-  });
-  const highlightScales = platformContent.map((_, index) => {
-      const startTime = index * segment;
-      const endTime = startTime + segment;
-      const fadeInEndTime = Math.min(startTime + transitionOverlap, (startTime + endTime) / 2);
-      const fadeOutStartTime = Math.max(endTime - transitionOverlap, (startTime + endTime) / 2);
-      return useTransform(scrollYProgress, [startTime, fadeInEndTime, fadeOutStartTime, endTime], [inactiveScale, 1, 1, inactiveScale]);
-  });
+  const highlightThreshold = 30; // Degrees within which to be fully highlighted/visible
+  const fadeThreshold = 60;    // Degrees over which to fade to inactive/invisible state
 
   return (
-    <section ref={targetRef} className="relative h-[400vh] bg-neutral-100">
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center bg-white">
-        <div className="container mx-auto flex gap-8 relative h-full">
+    // Wrap the entire section in the client-only wrapper
+    <ClientOnlyWrapper>
+      <section ref={targetRef} className="relative h-[400vh] bg-neutral-100">
+        <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center bg-white">
+          <div className="container mx-auto flex gap-8 relative h-full">
 
-          {/* Left Content Area */}
-          <div className="flex-1 flex flex-col justify-center items-start py-16">
-             {/* Existing Heading moved here */}
-             <Heading as="h2" level={2} className="text-left mb-8">
-               Consumer Engagement Platforms
-             </Heading>
-             {/* Placeholder for dynamic content */}
-             <div className="relative h-48 w-full"> {/* Adjust height as needed */}
-                {platformContent.map((platform, index) => (
-                   <motion.div
-                     key={index}
-                     className="absolute inset-0 flex flex-col justify-center"
-                     style={{ opacity: opacities[index] }}
-                   >
-                     <h3 className="text-2xl font-semibold mb-2">{platform.title}</h3>
-                     <p className="text-gray-600">{platform.description}</p>
-                     <button className="mt-4 px-6 py-2 border border-purple-600 text-purple-600 rounded-full hover:bg-purple-50 transition-colors">
+            {/* Left Content Area - Now driven by angle */}
+            <div className="flex-1 flex flex-col justify-center items-start py-16">
+              <Heading as="h2" level={2} className="text-left mb-8">
+                Consumer Engagement Platforms
+              </Heading>
+              <div className="relative h-48 w-full">
+                {/* Map over transforms derived within the right block map */}
+                {platformContent.map((platform, index) => {
+                  // Need to calculate angleDiff here too for text visibility
+                  const baseAngle = 180 + index * (360 / numItems);
+                  const angleDiff = useTransform(currentAngle, angle => {
+                      let currentBlockAngle = (baseAngle + angle) % 360;
+                      if (currentBlockAngle < 0) currentBlockAngle += 360;
+                      let diff = Math.abs(currentBlockAngle - 180);
+                      if (diff > 180) diff = 360 - diff; // Use shortest distance
+                      return diff;
+                  });
+                  // Text fades completely out when block is not near 9 o'clock
+                  const textOpacity = useTransform(angleDiff, [0, highlightThreshold, fadeThreshold], [1, 1, 0], { clamp: true });
+
+                  return (
+                    <motion.div
+                      key={`text-${index}`}
+                      className="absolute inset-0 flex flex-col justify-center"
+                      style={{ opacity: textOpacity }} // Use angle-based opacity
+                    >
+                      <h3 className="text-2xl font-semibold mb-2">{platform.title}</h3>
+                      <p className="text-gray-600">{platform.description}</p>
+                      <button className="mt-4 px-6 py-2 border border-purple-600 text-purple-600 rounded-full hover:bg-purple-50 transition-colors">
                         Explore Solutions
-                     </button>
-                   </motion.div>
-                 ))}
-             </div>
-          </div>
+                      </button>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
 
-          {/* Right Block Area - Direct Trigonometric Positioning */}
-          <div className="flex-1 flex justify-center items-center relative"> {/* No perspective needed */}
-            {/* No Parent Rotator Needed */}
-            {platformContent.map((_, index) => {
-              const baseAngle = index * (360 / numItems); // Calculate base angle for this item
-              // Calculate X and Y using transforms based on currentAngle
-              const x = useTransform(currentAngle, angle => radius * Math.cos((baseAngle + angle) * Math.PI / 180));
-              const y = useTransform(currentAngle, angle => radius * Math.sin((baseAngle + angle) * Math.PI / 180));
-              // Revert to tangential rotation (aligns local x-axis/right edge with tangent)
-              const blockRotate = useTransform(currentAngle, angle => (baseAngle + angle));
-              // Counter-rotation for the content inside the block
-              const contentRotate = useTransform(blockRotate, r => -r);
+            {/* Right Block Area - Angle-Based Highlighting */}
+            <div className="flex-1 flex justify-center items-center relative">
+              {platformContent.map((_, index) => {
+                const baseAngle = 180 + index * (360 / numItems);
+                const x = useTransform(currentAngle, angle => radius * Math.cos((baseAngle + angle) * Math.PI / 180));
+                const y = useTransform(currentAngle, angle => radius * Math.sin((baseAngle + angle) * Math.PI / 180));
+                const blockRotate = useTransform(currentAngle, angle => (baseAngle + angle));
+                const contentRotate = useTransform(blockRotate, r => -r);
 
-              return (
-                <motion.div
-                  key={index}
-                  // Position block absolutely, its position is controlled by x, y transforms
-                  className="absolute w-64 h-40 bg-slate-400 rounded-2xl flex items-center justify-center text-white shadow-lg origin-center"
-                  style={{
-                    x, // Apply calculated x
-                    y, // Apply calculated y
-                    rotate: blockRotate, // Apply tangential rotation to the block
-                    // Apply subtle highlighting based on scroll segment
-                    opacity: highlightOpacities[index],
-                    scale: highlightScales[index],
-                  }}
-                >
-                  {/* Inner div to counter-rotate content */}
-                  <motion.div style={{ rotate: contentRotate }}>
-                     Block {index + 1}
+                const angleDiff = useTransform(currentAngle, angle => {
+                  let currentBlockAngle = (baseAngle + angle) % 360;
+                  if (currentBlockAngle < 0) currentBlockAngle += 360;
+                  let diff = Math.abs(currentBlockAngle - 180);
+                  if (diff > 180) diff = 360 - diff; // Use shortest distance
+                  return diff;
+                });
+
+                // Block highlight opacity/scale based on angle
+                const highlightOpacity = useTransform(angleDiff, [0, highlightThreshold, fadeThreshold], [1, 1, inactiveOpacity], { clamp: true });
+                const highlightScale = useTransform(angleDiff, [0, highlightThreshold, fadeThreshold], [1, 1, inactiveScale], { clamp: true });
+
+                return (
+                  <motion.div
+                    key={`block-${index}`}
+                    className="absolute w-64 h-40 bg-slate-400 rounded-2xl flex items-center justify-center text-white shadow-lg origin-center"
+                    style={{
+                      x, y, rotate: blockRotate,
+                      opacity: highlightOpacity,
+                      scale: highlightScale,
+                    }}
+                  >
+                    <motion.div style={{ rotate: contentRotate }}>
+                       Block {index + 1}
+                    </motion.div>
                   </motion.div>
-                </motion.div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
 
-        </div> {/* End container */}
-      </div> {/* End sticky container */}
-    </section> /* End main section */
+          </div> {/* End container */}
+        </div> {/* End sticky container */}
+      </section> /* End main section */
+    </ClientOnlyWrapper>
   );
 };
 
