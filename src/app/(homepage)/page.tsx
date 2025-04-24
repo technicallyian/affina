@@ -7,7 +7,6 @@ export default function Home() {
     <>
       <Section className="container mx-auto">
         <Hero />
-        <ThreeD />
       </Section>
 
       <Section className="container mx-auto mt-20">
@@ -17,6 +16,8 @@ export default function Home() {
 
         <p className="mt-10">Sed dapibus mi ut nibh laoreet, eget convallis nisi pharetra. Sed eu eleifend orci, et scelerisque sem. In dapibus, enim sodales laoreet aliquet, orci dolor sollicitudin est, et pulvinar enim felis vel nibh. Morbi eu tellus eu turpis egestas ullamcorper sit amet vitae arcu. Proin commodo urna quis tempus interdum. Mauris eget euismod leo, malesuada laoreet leo. Donec aliquam rhoncus tincidunt. Cras metus nisl, pulvinar posuere est scelerisque, viverra sagittis velit. Aenean id sem gravida, malesuada arcu at, fringilla nibh. Duis arcu lectus, eleifend non ultricies in, sodales eget felis. Fusce vitae mattis eros, in venenatis arcu.</p>
       </Section>
+
+      <ThreeD />
     </>
   );
 }
