@@ -12,7 +12,7 @@
 
   /* Text/Foreground Colors */
   --color-foreground-strong: 16 25 36; /* #101924 */
-  --color-foreground: 39 53 71; /* #273547 */
+  --color-foreground: 55 65 81; /* #374151 - Updated to match tailwind.config.ts */
   --color-foreground-medium: 48 63 99; /* #303F63 */
   --color-foreground-muted: 90 109 129; /* #5A6D81 */
 
