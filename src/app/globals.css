@@ -1,26 +1,56 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Primary Theme Colors */
+  --color-primary: 37 158 229; /* #259EE5 */
+  --color-primary-dark: 12 0 75; /* #0C004B */
+  --color-primary-darker: 8 0 51; /* #080033 */
+  --color-secondary: 238 102 74; /* #EE664A */
+  --color-accent: 0 204 168; /* #00CCA8 */
+
+  /* Text/Foreground Colors */
+  --color-foreground-strong: 16 25 36; /* #101924 */
+  --color-foreground: 39 53 71; /* #273547 */
+  --color-foreground-medium: 48 63 99; /* #303F63 */
+  --color-foreground-muted: 90 109 129; /* #5A6D81 */
+
+  /* Border/Input Colors */
+  --color-border-strong: 118 138 157; /* #768A9D */
+  --color-border: 146 161 177; /* #92A1B1 */
+  --color-input: 174 186 199; /* #AEBAC7 */
+
+  /* Background Colors */
+  --color-background-muted: 200 209 219; /* #C8D1DB */
+  --color-background: 227 232 239; /* #E3E8EF */
+  --color-background-alt: 242 245 249; /* #F2F5F9 */
+  --color-card: 255 255 255; /* #ffffff */
+
+  /* Original Variables (adjust or remove if needed) */
+  /* --background: #ffffff; */ 
+  /* --foreground: #171717; */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+/* Remove or adjust the default dark mode if not desired */
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+     You might want to define dark theme versions of your custom variables here 
   }
-}
+} */
+
+/* @theme inline { */
+@theme inline {
+  --color-background: var(--color-background);
+  --color-foreground: var(--color-foreground);
+  --font-sans: var(--font-poppins);
+  --font-mono: var(--font-geist-mono); 
+} /* } */
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: rgb(var(--color-background)); /* Use our new background variable */
+  color: rgb(var(--color-foreground)); /* Use our new foreground variable */
+  font-family: var(--font-poppins); /* Directly apply Poppins variable */
 }
