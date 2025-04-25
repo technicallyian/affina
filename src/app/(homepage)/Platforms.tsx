@@ -54,8 +54,8 @@ const Platforms = () => {
   return (
     // Wrap the entire section in the client-only wrapper
     <ClientOnlyWrapper>
-      <section ref={targetRef} className="relative h-[600vh] bg-neutral-100">
-        <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center bg-white">
+      <section ref={targetRef} className="relative h-[20000px]">
+        <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center">
           <div className="container mx-auto flex gap-8 relative h-full">
 
             {/* Left Content Area - Now driven by angle */}
@@ -68,15 +68,18 @@ const Platforms = () => {
                 {platformContent.map((platform, index) => {
                   // Need to calculate angleDiff here too for text visibility
                   const baseAngle = startAngle - index * angleStep; // Reverse order: 90, 90-step, ...
-                  const angleDiff = useTransform(currentAngle, angle => {
+
+                  // Calculate angle difference specifically for text visibility (target 180 degrees)
+                  const angleDiffForText = useTransform(currentAngle, angle => {
                       let currentBlockAngle = (baseAngle + angle + rotationOffset) % 360; // Apply offset
                       if (currentBlockAngle < 0) currentBlockAngle += 360;
-                      let diff = Math.abs(currentBlockAngle - highlightTargetAngle); // Check distance to new target angle
+                      let diff = Math.abs(currentBlockAngle - 180); // Check distance to 180 degrees (left side)
                       if (diff > 180) diff = 360 - diff; // Use shortest distance
                       return diff;
                   });
-                  // Text fades completely out when block is not near 0 degrees (right side)
-                  const textOpacity = useTransform(angleDiff, [0, highlightThreshold, fadeThreshold], [1, 1, 0], { clamp: true });
+
+                  // Text fades based on proximity to 180 degrees (Use sharper thresholds)
+                  const textOpacity = useTransform(angleDiffForText, [0, 10, 20], [1, 1, 0], { clamp: true });
 
                   return (
                     <motion.div
@@ -135,9 +138,9 @@ const Platforms = () => {
               })}
             </div>
 
-          </div> {/* End container */}
-        </div> {/* End sticky container */}
-      </section> /* End main section */
+          </div>
+        </div>
+      </section>
     </ClientOnlyWrapper>
   );
 };

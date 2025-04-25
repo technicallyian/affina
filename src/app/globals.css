@@ -53,4 +53,5 @@ body {
   background: rgb(var(--color-background)); /* Use our new background variable */
   color: rgb(var(--color-foreground)); /* Use our new foreground variable */
   font-family: var(--font-poppins); /* Directly apply Poppins variable */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
