@@ -32,7 +32,7 @@ const Platforms = () => {
   const radius = 1200; // The radius of the circular path
 
   // 1. Master angle based on scroll (Clockwise, full rotation)
-  const currentAngle = useTransform(scrollYProgress, [0, 1], [0, 360]); // Use full 360 range
+  const currentAngle = useTransform(scrollYProgress, [0, 0.5], [0, 360]); // Complete rotation in first 20% of scroll
 
   // 3. Angle-based Highlighting & Text Opacity Logic
   const inactiveOpacity = 0.8;
@@ -54,7 +54,7 @@ const Platforms = () => {
   return (
     // Wrap the entire section in the client-only wrapper
     <ClientOnlyWrapper>
-      <section ref={targetRef} className="relative h-[20000px]">
+      <section ref={targetRef} className="relative h-[1500px]">
         <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center">
           <div className="container mx-auto flex gap-8 relative h-full">
 
