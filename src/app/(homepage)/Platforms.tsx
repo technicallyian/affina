@@ -32,7 +32,7 @@ const Platforms = () => {
   const radius = 1200; // The radius of the circular path
 
   // 1. Master angle based on scroll (Clockwise, full rotation)
-  const currentAngle = useTransform(scrollYProgress, [0, 0.5], [0, 360]); // Complete rotation in first 20% of scroll
+  const currentAngle = useTransform(scrollYProgress, [0, 0.5], [0, 510.1]); // Complete rotation in first 20% of scroll
 
   // 3. Angle-based Highlighting & Text Opacity Logic
   const inactiveOpacity = 0.8;
@@ -45,7 +45,7 @@ const Platforms = () => {
   const startAngle = 90; // Start from +90 degrees (top)
 
   // Add an offset to rotate the entire starting layout
-  const rotationOffset = 330; // Degrees to shift (Try 270 for 7 o'clock)
+  const rotationOffset = 120; // Degrees to shift (Try 270 for 7 o'clock)
   const highlightTargetAngle = (0 + rotationOffset) % 360; // New target angle for highlighting
 
   // Horizontal shift for the wheel's center
@@ -54,7 +54,7 @@ const Platforms = () => {
   return (
     // Wrap the entire section in the client-only wrapper
     <ClientOnlyWrapper>
-      <section ref={targetRef} className="relative h-[1500px]">
+      <section ref={targetRef} className="relative h-[3200px]">
         <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center">
           <div className="container mx-auto flex gap-8 relative h-full">
 
