@@ -54,7 +54,7 @@ const Platforms = () => {
   return (
     // Wrap the entire section in the client-only wrapper
     <ClientOnlyWrapper>
-      <section ref={targetRef} className="relative h-[3200px]">
+      <section ref={targetRef} className="relative h-[3800px]">
         <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center">
           <div className="container mx-auto flex gap-8 relative h-full">
 

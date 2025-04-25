@@ -12,8 +12,8 @@ export default function Crowdplay() {
     offset: ["start end", "end start"] // Adjust offset as needed
   });
 
-  // Parallax effect: Move slower than scroll
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '-50%']); // Adjust '-50%' for desired parallax speed
+  // Parallax effect: Move slower than scroll, staying static initially
+  const y = useTransform(scrollYProgress, [0, 0.6, 1], ['0%', '0%', '-50%']); // Stays at 0% for first 60%, then moves to -50%
   // Scaling effect: Start normal size, end larger
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1, 2]); // Start scaling earlier (at 50%) and end larger (2x)
 
@@ -25,7 +25,7 @@ export default function Crowdplay() {
           <img src="/starburst.svg" alt="Starburst" className="w-[800px] h-[800px] absolute top-0 left-0 z-0"/>
         </div>
 
-        <div ref={containerRef} className="mt-96 text-center iphone-container relative h-[120vh]">
+        <div ref={containerRef} className="mt-96 text-center iphone-container relative h-[3000px]">
           <img src="/crowdplayLogo.svg" alt="Crowdplay Logo" className="w-[900px] mx-auto"/>
           <motion.img
             src="/iPhone.svg"
