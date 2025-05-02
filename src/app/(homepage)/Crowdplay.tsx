@@ -26,6 +26,35 @@ export default function Crowdplay() {
 
 
   return (
+    <>
+    <div className="bg-primary-dark h-screen overflow-hidden relative">
+      {/* Container for the spheres: Make absolute, position top, translate up 50% */}
+      <div className="flex justify-center items-center gap-[100px] absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        {/* Left Ellipse */}
+        <div
+          className="bg-white"
+          style={{
+            width: 'calc(100vw - 100px)',
+            height: 'calc((100vw - 100px) * 0.75)',
+            minWidth: '100px',
+            minHeight: '75px',
+            borderRadius: '50%',
+          }}
+        />
+        {/* Right Ellipse */}
+        <div
+          className="bg-white"
+          style={{
+            width: 'calc(100vw - 100px)',
+            height: 'calc((100vw - 100px) * 0.75)',
+            minWidth: '100px',
+            minHeight: '75px',
+            borderRadius: '50%',
+          }}
+        />
+      </div>
+    </div>
+
     <div className="bg-primary-dark text-white py-[600px]">
       <Section className="max-w-5xl mx-auto py-4 relative">
 
@@ -96,5 +125,6 @@ export default function Crowdplay() {
 
       
     </div>
+  </>
   );
 } 
