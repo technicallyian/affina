@@ -3,8 +3,10 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, MotionValue } from "motion/react"; // Import motion
 import { Section } from '@/components/Section'; // Keep existing Section if needed, or replace outer tag
-import { Heading } from '@/components/typography/Heading';
+import { Heading, Text } from '@/components/typography';
 import ClientOnlyWrapper from '@/components/ClientOnlyWrapper'; // Import the wrapper
+import { BlurredSphere } from '@/components/BlurredSphere';
+import { Button } from '@/components/Button'; // Corrected import path
 
 // --- Constants ---
 const NUM_ITEMS = 6;
@@ -62,14 +64,14 @@ interface PlatformTextItemProps {
 
 const PlatformTextItem: React.FC<PlatformTextItemProps> = ({ platform, opacity }) => (
   <motion.div
-    className="absolute inset-0 flex flex-col justify-center"
+    className="absolute inset-0 flex flex-col justify-center items-center"
     style={{ opacity }}
   >
-    <h3 className="text-2xl font-semibold mb-2">{platform.title}</h3>
-    <p className="text-gray-600">{platform.description}</p>
-    <button className="mt-4 px-6 py-2 border border-purple-600 text-purple-600 rounded-full hover:bg-purple-50 transition-colors">
+    <h3 className="text-2xl font-semibold mb-2 text-center">{platform.title}</h3>
+    <p className="text-gray-600 text-center">{platform.description}</p>
+    <Button variant="ghost" className="mt-4">
       Explore Solutions
-    </button>
+    </Button>
   </motion.div>
 );
 
@@ -120,7 +122,7 @@ const Platforms = () => {
 
             {/* Left Content Area */}
             <div className="flex-1 flex flex-col justify-center items-start py-16">
-              <Heading as="h2" level={2} className="text-left mb-8">
+              <Heading as="h2" level={2} className="text-center mb-8 max-w-xl mx-auto">
                 Consumer Engagement Platforms
               </Heading>
               <div className="relative h-48 w-full"> {/* Adjust height as needed */}
