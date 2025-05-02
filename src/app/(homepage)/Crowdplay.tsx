@@ -13,7 +13,7 @@ export default function Crowdplay() {
   });
 
   // Parallax effect: Move slower than scroll, staying static initially
-  const y = useTransform(scrollYProgress, [0, 0.3, 1], ['0%', '-10%', '-50%']); // Starts moving up earlier
+  const y = useTransform(scrollYProgress, [0, 0.3, 1], ['0%', '-50%', '-50%']); // Move up much more aggressively earlier
   // Scaling effect: Start normal size, end larger
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1, 2]); // Start scaling earlier (at 50%) and end larger (2x)
 
@@ -30,7 +30,7 @@ export default function Crowdplay() {
           <motion.img
             src="/iPhone.svg"
             alt="iPhone displaying app screen"
-            className="w-[300px] mx-auto sticky top-1/4 z-10 mt-12"
+            className="w-[300px] mx-auto sticky top-1/2 z-10 mt-12"
             style={{ y, scale }}
           />
         </div>
