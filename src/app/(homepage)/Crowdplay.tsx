@@ -4,6 +4,7 @@ import { Section } from '@/components/Section';
 import { Heading, Text } from '@/components/typography';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
+import { IPhone } from './components/iPhone';
 
 export default function Crowdplay() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -27,9 +28,7 @@ export default function Crowdplay() {
 
         <div ref={containerRef} className="mt-96 text-center iphone-container relative h-[3000px]">
           <img src="/crowdplayLogo.svg" alt="Crowdplay Logo" className="w-[900px] mx-auto"/>
-          <motion.img
-            src="/iPhone.svg"
-            alt="iPhone displaying app screen"
+          <IPhone
             className="w-[300px] mx-auto sticky top-1/2 z-10 mt-12"
             style={{ y, scale }}
           />
