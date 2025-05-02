@@ -5,6 +5,7 @@ import { Heading, Text } from '@/components/typography';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
 import { IPhone } from './components/iPhone';
+import { BlurredSphere } from '@/components/BlurredSphere';
 
 export default function Crowdplay() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -28,11 +29,9 @@ export default function Crowdplay() {
   return (
     <>
     <div className="bg-primary-dark h-screen overflow-hidden relative">
-      {/* Container for the spheres: Make absolute, position top, translate up 50% */}
       <div className="flex justify-center items-center gap-[100px] absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        {/* Left Ellipse */}
         <div
-          className="bg-white"
+          className="bg-white relative z-50"
           style={{
             width: 'calc(100vw - 100px)',
             height: 'calc((100vw - 100px) * 0.75)',
@@ -41,9 +40,8 @@ export default function Crowdplay() {
             borderRadius: '50%',
           }}
         />
-        {/* Right Ellipse */}
         <div
-          className="bg-white"
+          className="bg-white relative z-10"
           style={{
             width: 'calc(100vw - 100px)',
             height: 'calc((100vw - 100px) * 0.75)',
@@ -51,17 +49,57 @@ export default function Crowdplay() {
             minHeight: '75px',
             borderRadius: '50%',
           }}
+        />
+          
+        <BlurredSphere 
+          color="bg-accent"
+          size="w-[600px] h-[600px]"
+          opacity="opacity-40"
+          blur="blur-[100px]"
+          position="absolute -bottom-[15%] right-[25%]"
+          transform="transform -translate-x-1/2 -translate-y-1/4"
+          zIndex="z-0"
         />
       </div>
     </div>
 
-    <div className="bg-primary-dark text-white py-[600px]">
+    <div className="bg-primary-dark text-white pt-[100px] pb-[600px]">
       <Section className="max-w-5xl mx-auto py-4 relative">
 
         <Heading as="h2" level={2} className="text-center text-white relative z-10">Two Unique Platforms</Heading>
-        <div className="absolute -top-[345px] -left-[200px] w-full h-full">
+        <div className="absolute -top-[345px] -left-[400px] w-full h-full">
           <img src="/starburst.svg" alt="Starburst" className="w-[800px] h-[800px] absolute top-0 left-0 z-0"/>
         </div>
+          
+        <BlurredSphere 
+          color="bg-primary"
+          size="w-[500px] h-[500px]"
+          opacity="opacity-60"
+          blur="blur-[150px]"
+          position="absolute -top-[5%] -right-[60%]"
+          transform="transform -translate-x-1/2 -translate-y-1/4"
+          zIndex="z-0"
+        />
+          
+        <BlurredSphere 
+          color="bg-primary"
+          size="w-[500px] h-[500px]"
+          opacity="opacity-60"
+          blur="blur-[150px]"
+          position="absolute -top-[5%] -left-[30%]"
+          transform="transform -translate-x-1/2 -translate-y-1/4"
+          zIndex="z-0"
+          />
+          
+        <BlurredSphere 
+          color="bg-accent"
+          size="w-[400px] h-[400px]"
+          opacity="opacity-60"
+          blur="blur-[150px]"
+          position="absolute top-[5%] -left-[10%]"
+          transform="transform -translate-x-1/2 -translate-y-1/4"
+          zIndex="z-0"
+        />
 
         <div ref={containerRef} className="mt-96 text-center iphone-container relative h-[2000px]">
           <motion.div
