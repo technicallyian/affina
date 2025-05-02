@@ -22,6 +22,7 @@ export default function Crowdplay() {
   const y1 = useTransform(scrollYProgress, [0.1, 1], ['250px', '-800px']);
   const y2 = useTransform(scrollYProgress, [0.1, 1], ['0px', '200px']);
   const y3 = useTransform(scrollYProgress, [0.1, 1], ['0px', '-1400px']); 
+  const y4 = useTransform(scrollYProgress, [0.1, 1], ['0', '0']);
 
 
   return (
@@ -33,7 +34,7 @@ export default function Crowdplay() {
           <img src="/starburst.svg" alt="Starburst" className="w-[800px] h-[800px] absolute top-0 left-0 z-0"/>
         </div>
 
-        <div ref={containerRef} className="mt-96 text-center iphone-container relative h-[3000px]">
+        <div ref={containerRef} className="mt-96 text-center iphone-container relative h-[2000px]">
           <motion.div
             className="absolute top-[40%] left-[250px] w-40 p-4 bg-gray-200 rounded-lg shadow-lg z-20 text-gray-800 text-sm" // Position relative to iphone-container now
             style={{ y: y1, opacity: floatOpacityEarly }} // Removed x: x1
@@ -47,7 +48,13 @@ export default function Crowdplay() {
             Here's another floating box.
           </motion.div>
           <motion.div
-            className="absolute top-[60%] left-[25%] w-40 p-5 bg-gray-200 rounded-lg shadow-lg z-20 text-gray-800 text-base" // Position relative to iphone-container now
+            className="absolute top-[35%] right-[220px] w-46 p-4 bg-blue-200 rounded-lg shadow-lg z-20 text-gray-800 text-sm" // Positioned above the second box
+            style={{ y: y4, opacity: floatOpacityEarly }} 
+          >
+            This is the another floating box.
+          </motion.div>
+          <motion.div
+            className="absolute top-[70%] left-[25%] w-40 p-5 bg-gray-200 rounded-lg shadow-lg z-20 text-gray-800 text-base" // Position relative to iphone-container now
             style={{ y: y3, opacity: floatOpacityEarly }} // Removed x: x3
           >
             A third element floats here too.
