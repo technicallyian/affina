@@ -18,9 +18,32 @@ export default function Crowdplay() {
   // Scaling effect: Start normal size, end larger
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1, 2]); // Start scaling earlier (at 50%) and end larger (2x)
 
+  // Transforms for floating divs
+  const floatOpacityEarly = useTransform(scrollYProgress, [0, 0.1, 0.2, 1], [0, 0, 1, 1]);
+  // Remove late opacity - not needed anymore
+  // const floatOpacityLate = useTransform(scrollYProgress, [0, 0.4, 0.5, 1], [0, 0, 1, 1]);
+
+  const y1 = useTransform(scrollYProgress, [0.1, 1], ['20%', '-450%']); // Match y2 timing and speed
+  const y2 = useTransform(scrollYProgress, [0.1, 1], ['20%', '-450%']); // Starts early
+  const y3 = useTransform(scrollYProgress, [0.1, 1], ['10%', '-250%']); // Starts early
+
   return (
     <div className="bg-primary-dark text-white py-[600px]">
       <Section className="container mx-auto py-4 relative">
+        {/* Floating Divs */}
+        <motion.div
+          className="absolute top-[40%] right-[20%] w-16 h-16 bg-blue-500 rounded-full z-20" // Set position to match teal dot
+          style={{ y: y1, opacity: floatOpacityEarly }}
+        />
+        <motion.div
+          className="absolute top-[40%] right-[20%] w-12 h-12 bg-teal-400 rounded-full z-20"
+          style={{ y: y2, opacity: floatOpacityEarly }}
+        />
+        <motion.div
+          className="absolute top-[60%] left-[25%] w-20 h-20 bg-purple-500 rounded-full z-20"
+          style={{ y: y3, opacity: floatOpacityEarly }}
+        />
+
         <Heading as="h2" level={2} className="text-center text-white relative z-10">Two Unique Platforms</Heading>
         <div className="absolute -top-[345px] -left-[200px] w-full h-full">
           <img src="/starburst.svg" alt="Starburst" className="w-[800px] h-[800px] absolute top-0 left-0 z-0"/>
@@ -31,7 +54,13 @@ export default function Crowdplay() {
           <IPhone
             className="w-[300px] mx-auto sticky top-1/2 z-10 mt-12"
             style={{ y, scale }}
-          />
+            backgroundImageUrl="/homepage/phone-bg.png"
+          >
+            {/* Optional: Add content on top of the image */}
+            {/* <div className="bg-black/50 w-full h-full flex items-center justify-center">
+              <p className="text-white text-xl">Overlay Content</p>
+            </div> */}
+          </IPhone>
         </div>
 
         <div className="mt-20 text-center">

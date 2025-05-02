@@ -7,9 +7,10 @@ interface IPhoneProps {
   className?: string;
   style?: MotionStyle;
   children?: ReactNode;
+  backgroundImageUrl?: string;
 }
 
-export function IPhone({ className, style, children }: IPhoneProps) {
+export function IPhone({ className, style, children, backgroundImageUrl }: IPhoneProps) {
   return (
     <motion.div className={className} style={style}>
       <div className="relative w-full h-full">
@@ -214,16 +215,24 @@ export function IPhone({ className, style, children }: IPhoneProps) {
           </defs>
         </svg>
         <div
-          className="absolute overflow-hidden"
+          className="absolute overflow-hidden -z-10"
           style={{
-            top: '6.1% ',
-            left: '7.5%',
-            width: '85%',
-            height: '86.4%',
-            borderRadius: '40px'
+            top: '6.1%',
+            left: '7%',
+            width: '86%',
+            height: '91.6%',
           }}
         >
-          {children}
+          {backgroundImageUrl && (
+            <img
+              src={backgroundImageUrl}
+              alt="iPhone background"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          )}
+          <div className="relative z-10 w-full h-full">
+             {children}
+          </div>
         </div>
       </div>
     </motion.div>
