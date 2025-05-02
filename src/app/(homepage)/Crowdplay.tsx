@@ -28,7 +28,7 @@ export default function Crowdplay() {
 
   return (
     <>
-    <div className="bg-primary-dark h-screen overflow-hidden relative">
+    <div className="bg-primary-dark h-screen overflow-hidden relative -mb-[20vh]">
       <div className="flex justify-center items-center gap-[100px] absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div
           className="bg-white relative z-50"
@@ -132,12 +132,8 @@ export default function Crowdplay() {
             className="w-[300px] mx-auto sticky top-1/2 z-10 mt-12"
             style={{ y, scale }}
             backgroundImageUrl="/homepage/phone-bg.png"
-          >
-            {/* Optional: Add content on top of the image */}
-            {/* <div className="bg-black/50 w-full h-full flex items-center justify-center">
-              <p className="text-white text-xl">Overlay Content</p>
-            </div> */}
-          </IPhone>
+            >
+            </IPhone>
         </div>
 
         <div className="mt-20 text-center">
