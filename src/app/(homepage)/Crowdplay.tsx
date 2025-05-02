@@ -14,35 +14,19 @@ export default function Crowdplay() {
   });
 
   // Parallax effect: Move slower than scroll, staying static initially
-  const y = useTransform(scrollYProgress, [0, 0.3, 1], ['0%', '-50%', '-50%']); // Move up much more aggressively earlier
-  // Scaling effect: Start normal size, end larger
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1, 2]); // Start scaling earlier (at 50%) and end larger (2x)
+  const y = useTransform(scrollYProgress, [0, 0.3, 1], ['0%', '-50%', '-50%']);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1, 2]);
 
-  // Transforms for floating divs
   const floatOpacityEarly = useTransform(scrollYProgress, [0, 0.1, 0.2, 1], [0, 0, 1, 1]);
-  // Remove late opacity - not needed anymore
-  // const floatOpacityLate = useTransform(scrollYProgress, [0, 0.4, 0.5, 1], [0, 0, 1, 1]);
 
-  const y1 = useTransform(scrollYProgress, [0.1, 1], ['20%', '-450%']); // Match y2 timing and speed
-  const y2 = useTransform(scrollYProgress, [0.1, 1], ['20%', '-450%']); // Starts early
-  const y3 = useTransform(scrollYProgress, [0.1, 1], ['10%', '-250%']); // Starts early
+  const y1 = useTransform(scrollYProgress, [0.1, 1], ['250px', '-800px']);
+  const y2 = useTransform(scrollYProgress, [0.1, 1], ['0px', '200px']);
+  const y3 = useTransform(scrollYProgress, [0.1, 1], ['0px', '-1400px']); 
+
 
   return (
     <div className="bg-primary-dark text-white py-[600px]">
-      <Section className="container mx-auto py-4 relative">
-        {/* Floating Divs */}
-        <motion.div
-          className="absolute top-[40%] right-[20%] w-16 h-16 bg-blue-500 rounded-full z-20" // Set position to match teal dot
-          style={{ y: y1, opacity: floatOpacityEarly }}
-        />
-        <motion.div
-          className="absolute top-[40%] right-[20%] w-12 h-12 bg-teal-400 rounded-full z-20"
-          style={{ y: y2, opacity: floatOpacityEarly }}
-        />
-        <motion.div
-          className="absolute top-[60%] left-[25%] w-20 h-20 bg-purple-500 rounded-full z-20"
-          style={{ y: y3, opacity: floatOpacityEarly }}
-        />
+      <Section className="max-w-5xl mx-auto py-4 relative">
 
         <Heading as="h2" level={2} className="text-center text-white relative z-10">Two Unique Platforms</Heading>
         <div className="absolute -top-[345px] -left-[200px] w-full h-full">
@@ -50,6 +34,25 @@ export default function Crowdplay() {
         </div>
 
         <div ref={containerRef} className="mt-96 text-center iphone-container relative h-[3000px]">
+          <motion.div
+            className="absolute top-[40%] left-[250px] w-40 p-4 bg-gray-200 rounded-lg shadow-lg z-20 text-gray-800 text-sm" // Position relative to iphone-container now
+            style={{ y: y1, opacity: floatOpacityEarly }} // Removed x: x1
+          >
+            This is the first floating element.
+          </motion.div>
+          <motion.div
+            className="absolute top-[40%] right-[300px] w-32 p-3 bg-gray-200 rounded-lg shadow-lg z-20 text-gray-800 text-xs" // Position relative to iphone-container now
+            style={{ y: y2, opacity: floatOpacityEarly }} // Removed x: x2
+          >
+            Here's another floating box.
+          </motion.div>
+          <motion.div
+            className="absolute top-[60%] left-[25%] w-40 p-5 bg-gray-200 rounded-lg shadow-lg z-20 text-gray-800 text-base" // Position relative to iphone-container now
+            style={{ y: y3, opacity: floatOpacityEarly }} // Removed x: x3
+          >
+            A third element floats here too.
+          </motion.div>
+
           <img src="/crowdplayLogo.svg" alt="Crowdplay Logo" className="w-[900px] mx-auto"/>
           <IPhone
             className="w-[300px] mx-auto sticky top-1/2 z-10 mt-12"
