@@ -3,7 +3,7 @@
 import { motion, MotionStyle } from 'motion/react';
 import { ReactNode } from 'react';
 
-interface IPhoneProps {
+export interface IPhoneProps {
   className?: string;
   style?: MotionStyle;
   children?: ReactNode;

@@ -4,9 +4,11 @@ import { Section } from '@/components/Section';
 import { Heading, Text } from '@/components/typography';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
-import { IPhone } from './components/iPhone';
+// import { IPhone } from './components/iPhone'; // No longer directly used here
 import { BlurredSphere } from '@/components/BlurredSphere';
 import { Button } from '@/components/Button';
+import { DynamicIPhoneWithContent } from './components/DynamicIPhoneWithContent'; // Import the new component
+
 export default function Crowdplay() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -17,7 +19,93 @@ export default function Crowdplay() {
   // Parallax effect: Move slower than scroll, staying static initially
   const y = useTransform(scrollYProgress, [0, 0.3, 1], ['0%', '-50%', '-50%']);
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1, 2]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.28, 0.3], [0, 0, 1]);
+  // const contentOpacity = useTransform(scrollYProgress, [0, 0.28, 0.3], [0, 0, 1]);
+
+  const contentBoxes = [
+    {
+      id: 'lorem1',
+      content: (
+        <Text as="p" className="text-sm text-gray-700">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </Text>
+      ),
+      positionStyles: {
+        top: '100px',
+        left: '-100px',
+        transform: 'translate(-50%, -60%)',
+        width: '280px',
+      },
+      className: "bg-white rounded-lg p-4 text-black shadow-xl backdrop-blur-md",
+      motionProps: {
+        initial: { opacity: 0, x: 50 },
+        whileInView: { opacity: 1, x: 0 },
+        viewport: { once: false, amount: 0.5 },
+        transition: { duration: 0.5 } // Delay is now handled by DynamicIPhoneWithContent
+      }
+    },
+    {
+      id: 'lorem2',
+      content: (
+        <Text as="p" className="text-xs text-gray-600">
+          Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+        </Text>
+      ),
+      positionStyles: {
+        top: '15%',
+        right: '5%',
+        transform: 'translateY(-50%)',
+        width: '200px',
+      },
+      className: "bg-white rounded-lg p-3 text-black shadow-lg backdrop-blur-sm",
+      motionProps: {
+        initial: { opacity: 0, x: 50 },
+        whileInView: { opacity: 1, x: 0 },
+        viewport: { once: false, amount: 0.6 },
+        transition: { duration: 0.5 } 
+      }
+    },
+    {
+      id: 'lorem3',
+      content: (
+        <Text as="p" className="text-sm text-gray-700">
+          Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur.
+        </Text>
+      ),
+      positionStyles: {
+        bottom: '10%',
+        left: '5%',
+        width: '240px',
+      },
+      className: "bg-white rounded-lg p-4 text-black shadow-xl backdrop-blur-md",
+      motionProps: {
+        initial: { opacity: 0, y: 50 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: false, amount: 0.4 },
+        transition: { duration: 0.5 } // Delay is now handled by DynamicIPhoneWithContent
+      }
+    },
+    {
+      id: 'lorem4',
+      content: (
+        <Text as="p" className="text-xs text-gray-600">
+          Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.
+        </Text>
+      ),
+      positionStyles: {
+        top: '70%',
+        left: 'calc(50% + 40px)',
+        transform: 'translate(-50%, -50%)',
+        width: '220px',
+      },
+      className: "bg-white rounded-md p-3 text-black shadow-lg backdrop-blur-sm",
+      motionProps: {
+        initial: { opacity: 0, x: -50 },
+        whileInView: { opacity: 1, x: 0 },
+        viewport: { once: false, amount: 0.5 },
+        transition: { duration: 0.5 } // Delay is now handled by DynamicIPhoneWithContent
+      }
+    }
+  ];
 
   return (
     <>
@@ -100,25 +188,12 @@ export default function Crowdplay() {
             className="w-[400px] mx-auto sticky top-1/2 z-10 mt-12" 
             style={{ y, scale }}
           >
-            <IPhone
-              className="w-full relative"
+            <DynamicIPhoneWithContent
+              iphoneClassName="w-full relative"
               backgroundImageUrl="/homepage/phone-bg.png"
-            >
-              <motion.div
-                className="absolute top-1/2 w-[280px] h-[400px] bg-white rounded-lg p-4 text-black shadow-xl backdrop-blur-md"
-                style={{
-                  opacity: contentOpacity,
-                  left: 'calc(50% - 100px)',
-                  translateX: '-50%', 
-                  translateY: '-60%',
-                }}
-              >
-                <Heading as="h4" level={4} className="text-black mb-2">Lorem Ipsum</Heading>
-                <Text as="p" className="text-sm text-gray-700">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </Text>
-              </motion.div>
-            </IPhone>
+              contentBoxes={contentBoxes}
+              staggerDelaySeconds={0.15}
+            />
           </motion.div>
         </div>
 
