@@ -19,18 +19,22 @@ const Experience = () => {
           <FeatureCard
             title="Customize White Label"
             paragraph="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+            illustration="/icons/WhiteLabel.svg"
           />
           <FeatureCard
-            title="Feature Two"
+            title="Manage Loyalty"
             paragraph="Sed do eiusmod tempor incididunt ut labore."
+            illustration="/icons/Heart.svg"
           />
           <FeatureCard
-            title="Feature Three"
+            title="Revenue Driven Connections"
             paragraph="Ut enim ad minim veniam, quis nostrud exercitation."
+            illustration="/icons/Revenue.svg"
           />
           <FeatureCard
-            title="Feature Four"
+            title="Innovative Technology"
             paragraph="Duis aute irure dolor in reprehenderit in voluptate velit."
+            illustration="/icons/Tech.svg"
           />
         </div>
       </Section>

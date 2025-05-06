@@ -6,7 +6,7 @@ import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
 import { IPhone } from './components/iPhone';
 import { BlurredSphere } from '@/components/BlurredSphere';
-
+import { Button } from '@/components/Button';
 export default function Crowdplay() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -138,25 +138,25 @@ export default function Crowdplay() {
 
         <div className="mt-20 text-center">
           <Heading as="h2" level={3} className="max-w-2xl mx-auto text-white text-pretty">Consumer Engagement & Activation</Heading>
-          <Text as="p" className="max-w-lg mx-auto text-white text-pretty mt-6">Aenean ultrices fringilla leo, vitae dapibus nisl pellentesque nec. Donec nec vestibulum tellus.</Text>
-        </div>
-
-        <div className="mt-20 flex justify-between space-x-8 items-stretch">
-          <div className="flex-1 text-center">
-            <Heading as="h3" level={4} className="text-white">Card 1 Heading</Heading>
-            <Text as="p" className="text-white mt-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text>
-          </div>
-          <div className="flex-1 text-center">
-            <Heading as="h3" level={4} className="text-white">Card 2 Heading</Heading>
-            <Text as="p" className="text-white mt-4">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
-          </div>
-          <div className="flex-1 text-center">
-            <Heading as="h3" level={4} className="text-white">Card 3 Heading</Heading>
-            <Text as="p" className="text-white mt-4">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</Text>
-          </div>
         </div>
       </Section>
-
+      <div className="container mx-auto mt-10 flex justify-between space-x-8 items-stretch">
+        <div className="flex-1 text-center rounded-3xl bg-primary/5 p-14">
+          <Heading as="h3" level={1} className="text-white">77%</Heading>
+          <Text as="p" className="text-white mt-4">Daily Engagement</Text>
+        </div>
+        <div className="flex-1 text-center rounded-3xl bg-primary/5 p-14">
+          <Heading as="h3" level={1} className="text-white">86%</Heading>
+          <Text as="p" className="text-white mt-4">Weekly Engagement</Text>
+        </div>
+        <div className="flex-1 text-center rounded-3xl bg-primary/5 p-14">
+          <Heading as="h3" level={1} className="text-white">96%</Heading>
+          <Text as="p" className="text-white mt-4">Monthly Engagement</Text>
+        </div>
+      </div>
+      <div className="mt-10 text-center">
+        <Button variant="ghost" inverted>Learn More</Button>
+      </div>
       
     </div>
   </>

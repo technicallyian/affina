@@ -20,10 +20,23 @@ const buttonVariants = cva(
         medium: 'rounded-full px-[32px] py-[16px]',    // Updated padding, removed h-9
         small: 'rounded-full px-[28px] py-[12px]',     // Updated padding, removed h-8
       },
+      inverted: {
+        true: '', // Base styles for inverted, can be added if needed globally
+        false: '',
+      }
     },
+    compoundVariants: [
+      {
+        variant: 'ghost',
+        inverted: true,
+        className: 'border-white text-white hover:border-primary hover:text-primary', // Updated Inverted ghost styles
+      },
+      // Add other compound variants if needed
+    ],
     defaultVariants: {
       variant: 'default',
       size: 'medium',
+      inverted: false,
     },
   }
 );
@@ -33,16 +46,17 @@ export interface ButtonProps
     VariantProps<typeof buttonVariants> {
   iconLeft?: React.ReactElement<LucideProps>;
   iconRight?: React.ReactElement<LucideProps>;
+  inverted?: boolean; // Add inverted prop
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, iconLeft, iconRight, children, ...props }, ref) => {
+  ({ className, variant, size, inverted, iconLeft, iconRight, children, ...props }, ref) => {
     const IconLeft = iconLeft ? React.cloneElement(iconLeft, { size: '1em' }) : null;
     const IconRight = iconRight ? React.cloneElement(iconRight, { size: '1em' }) : null;
 
     return (
       <button
-        className={clsx(buttonVariants({ variant, size, className }), {
+        className={clsx(buttonVariants({ variant, size, inverted, className }), {
           'gap-2': (IconLeft || IconRight) && children, // Add gap if icon and text are present
         })}
         ref={ref}

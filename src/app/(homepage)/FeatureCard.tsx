@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heading } from '@/components/typography/Heading';
+import { Heading, Text } from '@/components/typography';
 
 interface FeatureCardProps {
   title?: string;
@@ -16,12 +16,16 @@ const FeatureCard = ({ title, illustration, paragraph }: FeatureCardProps) => {
           alt="Background texture"
           className="absolute top-0 left-0 w-full h-auto object-cover z-0"
         />
-        <div className="relative z-10">
-          <Heading as="h3" className="text-lg font-semibold mb-2">{title || "Feature Title"}</Heading>
-          <div className="w-20 h-20 bg-gray-200 rounded-full mb-4 flex items-center justify-center">
-            {illustration || <span className="text-gray-500 text-sm">Illust.</span>}
+        <div className="relative z-10 flex flex-col items-center">
+          <Text className="text-lg font-semibold mb-2 h-14">{title || "Feature Title"}</Text>
+          <div className="w-[202px] h-[202px] mb-4 flex items-center justify-center">
+            {illustration ? (
+              React.isValidElement(illustration) ? illustration : <img src={String(illustration)} alt={title || "Feature Illustration"} className="w-full h-full object-contain" />
+            ) : (
+              <span className="text-gray-500 text-sm">Illust.</span>
+            )}
           </div>
-          <p className="text-sm">{paragraph || "Description of the feature goes here."}</p>
+          <p className="text-sm text-center leading-snug">{paragraph || "Description of the feature goes here."}</p>
         </div>
       </div>
     </div>
