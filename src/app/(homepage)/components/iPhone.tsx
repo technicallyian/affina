@@ -215,7 +215,7 @@ export function IPhone({ className, style, children, backgroundImageUrl }: IPhon
           </defs>
         </svg>
         <div
-          className="absolute overflow-hidden -z-10"
+          className="absolute -z-10"
           style={{
             top: '6.1%',
             left: '7%',
@@ -230,9 +230,9 @@ export function IPhone({ className, style, children, backgroundImageUrl }: IPhon
               className="absolute inset-0 w-full h-full object-cover"
             />
           )}
-          <div className="relative z-10 w-full h-full">
-             {children}
-          </div>
+        </div>
+        <div className="absolute inset-0 w-full h-full">
+          {children}
         </div>
       </div>
     </motion.div>

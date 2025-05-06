@@ -17,14 +17,7 @@ export default function Crowdplay() {
   // Parallax effect: Move slower than scroll, staying static initially
   const y = useTransform(scrollYProgress, [0, 0.3, 1], ['0%', '-50%', '-50%']);
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1, 2]);
-
-  const floatOpacityEarly = useTransform(scrollYProgress, [0, 0.1, 0.2, 1], [0, 0, 1, 1]);
-
-  const y1 = useTransform(scrollYProgress, [0.1, 1], ['250px', '-800px']);
-  const y2 = useTransform(scrollYProgress, [0.1, 1], ['0px', '200px']);
-  const y3 = useTransform(scrollYProgress, [0.1, 1], ['0px', '-1400px']); 
-  const y4 = useTransform(scrollYProgress, [0.1, 1], ['0', '0']);
-
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.28, 0.3], [0, 0, 1]);
 
   return (
     <>
@@ -102,38 +95,31 @@ export default function Crowdplay() {
         />
 
         <div ref={containerRef} className="mt-96 text-center iphone-container relative h-[2000px]">
-          <motion.div
-            className="absolute top-[40%] left-[250px] w-40 p-4 bg-gray-200 rounded-lg shadow-lg z-20 text-gray-800 text-sm" // Position relative to iphone-container now
-            style={{ y: y1, opacity: floatOpacityEarly }} // Removed x: x1
-          >
-            This is the first floating element.
-          </motion.div>
-          <motion.div
-            className="absolute top-[40%] right-[300px] w-32 p-3 bg-gray-200 rounded-lg shadow-lg z-20 text-gray-800 text-xs" // Position relative to iphone-container now
-            style={{ y: y2, opacity: floatOpacityEarly }} // Removed x: x2
-          >
-            Here's another floating box.
-          </motion.div>
-          <motion.div
-            className="absolute top-[35%] right-[220px] w-46 p-4 bg-blue-200 rounded-lg shadow-lg z-20 text-gray-800 text-sm" // Positioned above the second box
-            style={{ y: y4, opacity: floatOpacityEarly }} 
-          >
-            This is the another floating box.
-          </motion.div>
-          <motion.div
-            className="absolute top-[70%] left-[25%] w-40 p-5 bg-gray-200 rounded-lg shadow-lg z-20 text-gray-800 text-base" // Position relative to iphone-container now
-            style={{ y: y3, opacity: floatOpacityEarly }} // Removed x: x3
-          >
-            A third element floats here too.
-          </motion.div>
-
           <img src="/crowdplayLogo.svg" alt="Crowdplay Logo" className="w-[900px] mx-auto"/>
-          <IPhone
-            className="w-[300px] mx-auto sticky top-1/2 z-10 mt-12"
+          <motion.div 
+            className="w-[400px] mx-auto sticky top-1/2 z-10 mt-12" 
             style={{ y, scale }}
-            backgroundImageUrl="/homepage/phone-bg.png"
+          >
+            <IPhone
+              className="w-full relative"
+              backgroundImageUrl="/homepage/phone-bg.png"
             >
+              <motion.div
+                className="absolute top-1/2 w-[280px] h-[400px] bg-white rounded-lg p-4 text-black shadow-xl backdrop-blur-md"
+                style={{
+                  opacity: contentOpacity,
+                  left: 'calc(50% - 100px)',
+                  translateX: '-50%', 
+                  translateY: '-60%',
+                }}
+              >
+                <Heading as="h4" level={4} className="text-black mb-2">Lorem Ipsum</Heading>
+                <Text as="p" className="text-sm text-gray-700">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </Text>
+              </motion.div>
             </IPhone>
+          </motion.div>
         </div>
 
         <div className="mt-20 text-center">
