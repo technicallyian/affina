@@ -194,6 +194,17 @@ export default function Crowdplay() {
               contentBoxes={contentBoxes}
               staggerDelaySeconds={0.15}
             />
+              
+            <BlurredSphere 
+              color="bg-accent"
+              size="w-[200%]"
+              opacity="opacity-40"
+              blur="blur-[100px]"
+              position="absolute"
+              zIndex="-z-20"
+              className="bottom-0 aspect-square left-1/2"
+              transform="transform -translate-x-1/2"
+            />
           </motion.div>
         </div>
 
