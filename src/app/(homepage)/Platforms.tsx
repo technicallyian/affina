@@ -4,7 +4,7 @@ import Spinner from './components/Spinner';
 
 const Platforms = () => {
   return (
-    <div className="h-screen bg-white">
+    <div className="h-[400vh] bg-white">
       <div className="grid grid-cols-2 h-full">
         <div>sdfg</div>
         <div>
