@@ -1,18 +1,18 @@
 'use client';
 
 import React from 'react';
+import { Property } from 'csstype';
 
 const Spinner = () => {
   const cards = Array(6).fill(null);
 
   const transforms = [
-    { transform: 'translate(45%, -8%) rotate(30deg)' },
-    { transform: 'translate(11%, -7%) rotate(14deg)' },
-    { transform: 'translate(0) rotate(0)' },
-    { transform: 'translate(11%, 7%) rotate(-14deg)' },
-    { transform: 'translate(45%, 8%) rotate(-30deg)' },
-    { transform: 'translate(105%, -8%) rotate(-48deg)' },
-    // Add more transforms here if needed for other cards
+    { transform: 'translate(45%, -8%) rotate(30deg)', left: '-50%', position: 'relative' as Property.Position },
+    { transform: 'translate(11%, -7%) rotate(14deg)', left: '-50%', position: 'relative' as Property.Position },
+    { transform: 'translate(0) rotate(0)', left: '-50%', position: 'relative' as Property.Position },
+    { transform: 'translate(11%, 7%) rotate(-14deg)', left: '-50%', position: 'relative' as Property.Position },
+    { transform: 'translate(45%, 8%) rotate(-30deg)', left: '-50%', position: 'relative' as Property.Position },
+    { transform: 'translate(105%, -8%) rotate(-48deg)', left: '-50%', position: 'relative' as Property.Position },
   ];
 
   return (
