@@ -11,7 +11,7 @@ const Spinner = () => {
     offset: ["start end", "end start"]
   });
 
-  const scrollDrivenRotate = useTransform(scrollYProgress, [0, 1], [0, 720]);
+  const scrollDrivenRotate = useTransform(scrollYProgress, [0, 1], [0, 150]);
 
   const NUM_CARDS = 6;
   const RADIUS_VW_PERCENTAGE = 60;
@@ -28,7 +28,7 @@ const Spinner = () => {
     return () => window.removeEventListener('resize', calculatePixelRadius);
   }, [RADIUS_VW_PERCENTAGE]);
 
-  const START_ANGLE_DEGREES = 0;
+  const START_ANGLE_DEGREES = 180;
   const ANGLE_STEP_DEGREES = -180 / (NUM_CARDS - 1);
 
   const cards = Array(NUM_CARDS).fill(null);
@@ -50,11 +50,13 @@ const Spinner = () => {
         className="grid grid-cols-1 gap-20 p-4"
         style={{
           transformOrigin: 'center',
-          width: '50rem',
-          height: '50rem',
+          width: '80vmin',
+          height: '80vmin',
           rotate: scrollDrivenRotate,
-          position: 'relative',
-          margin: 'auto'
+          position: 'sticky',
+          right: '-40vmin',
+          top: '50vh',
+          y: '-50%',
         }}
       >
         {cards.map((_, index) => (
