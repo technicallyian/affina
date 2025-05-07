@@ -109,26 +109,34 @@ export default function Crowdplay() {
 
   return (
     <>
-    <div className="bg-primary-dark h-screen overflow-hidden relative -mb-[20vh]">
-      <div className="flex justify-center items-center gap-[100px] absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <div
+
+    <div className="bg-primary-dark text-white pt-[100px] pb-[600px] relative">
+        
+      {/*<div className="flex justify-center items-center gap-[100px] absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <div
           className="bg-white relative z-50"
           style={{
             width: 'calc(100vw - 100px)',
             height: 'calc((100vw - 100px) * 0.75)',
             minWidth: '100px',
             minHeight: '75px',
-            borderRadius: '50%',
+            borderTopLeftRadius: 0,
+            borderTopRightRadius: 0,
+            borderBottomLeftRadius: '50%',
+            borderBottomRightRadius: '50%',
           }}
         />
         <div
-          className="bg-white relative z-10"
+          className="bg-white"
           style={{
             width: 'calc(100vw - 100px)',
             height: 'calc((100vw - 100px) * 0.75)',
             minWidth: '100px',
             minHeight: '75px',
-            borderRadius: '50%',
+            borderTopLeftRadius: 0,
+            borderTopRightRadius: 0,
+            borderBottomLeftRadius: '50%',
+            borderBottomRightRadius: '50%',
           }}
         />
           
@@ -141,14 +149,19 @@ export default function Crowdplay() {
           transform="transform -translate-x-1/2 -translate-y-1/4"
           zIndex="z-0"
         />
-      </div>
-    </div>
+      </div>*/}
+        
+      <Section className="max-w-5xl mx-auto py-4 relative pt-[400px]">
 
-    <div className="bg-primary-dark text-white pt-[100px] pb-[600px]">
-      <Section className="max-w-5xl mx-auto py-4 relative">
-
-        <Heading as="h2" level={2} className="text-center text-white relative z-10">Two Unique Platforms</Heading>
-        <div className="absolute -top-[345px] -left-[400px] w-full h-full">
+        <motion.div
+          initial={{ opacity: 0, x: 100 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: false, amount: 0.5 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Heading as="h2" level={1} className="text-center text-white relative z-10">Two Unique Platforms</Heading>
+        </motion.div>
+        <div className="absolute top-0 -left-[400px] w-full h-full">
           <img src="/starburst.svg" alt="Starburst" className="w-[800px] h-[800px] absolute top-0 left-0 z-0"/>
         </div>
           
@@ -183,7 +196,7 @@ export default function Crowdplay() {
         />
 
         <div ref={containerRef} className="mt-96 text-center iphone-container relative h-[2000px]">
-          <img src="/crowdplayLogo.svg" alt="Crowdplay Logo" className="w-[900px] mx-auto"/>
+          <img src="/crowdplayLogo.svg" alt="Crowdplay Logo" className="w-[900px] mx-auto mb-[300px]"/>
           <motion.div 
             className="w-[400px] mx-auto sticky top-1/2 z-10 mt-12" 
             style={{ y, scale }}
@@ -196,9 +209,9 @@ export default function Crowdplay() {
             />
               
             <BlurredSphere 
-              color="bg-accent"
+              color="bg-primary"
               size="w-[200%]"
-              opacity="opacity-40"
+              opacity="opacity-60"
               blur="blur-[100px]"
               position="absolute"
               zIndex="-z-20"

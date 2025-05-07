@@ -5,6 +5,7 @@ import LogoSlider from './LogoSlider';
 import Experience from './Experience';
 import Platforms from './Platforms';
 import Crowdplay from './Crowdplay';
+import Rethink from './Rethink';
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <Experience />
       <Platforms />
       <Crowdplay />
+      <Rethink />
       <ThreeD />
     </>
   );
