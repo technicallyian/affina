@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Poppins, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "../components/Header";
+import CustomCursor from "../components/CustomCursor";
+import GlobalStyle from "../components/GlobalStyle";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -26,11 +28,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <GlobalStyle />
+      </head>
       <body
         className={`${poppins.variable} ${geistMono.variable} antialiased bg-white`}
       >
         <Header />
         <main>{children}</main>
+        <CustomCursor />
       </body>
     </html>
   );

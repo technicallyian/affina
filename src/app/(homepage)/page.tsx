@@ -6,6 +6,7 @@ import Experience from './Experience';
 import Platforms from './Platforms';
 import Crowdplay from './Crowdplay';
 import Rethink from './Rethink';
+import WhyAffina from './WhyAffina';
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <Platforms />
       <Crowdplay />
       <Rethink />
+      <WhyAffina />
       <ThreeD />
     </>
   );
