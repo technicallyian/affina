@@ -25,6 +25,7 @@ const config: Config = {
         background: '#E3E8EF',
         'background-alt': '#F2F5F9',
         card: '#ffffff',
+        pink: '#C285FF',
       },
       fontSize: {
         'size-h1': '76px',

@@ -2,12 +2,13 @@
 
 import { Section } from '@/components/Section';
 import { Heading, Text } from '@/components/typography';
-import { motion, useScroll, useTransform } from 'motion/react';
-import { useRef } from 'react';
+import { motion, useScroll, useTransform, useInView } from 'motion/react';
+import { useRef, useState } from 'react';
 // import { IPhone } from './components/iPhone'; // No longer directly used here
 import { BlurredSphere } from '@/components/BlurredSphere';
 import { Button } from '@/components/Button';
 import { DynamicIPhoneWithContent } from './components/DynamicIPhoneWithContent'; // Import the new component
+import { AnimatedStarburst } from './AnimatedStarburst';
 
 export default function Crowdplay() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -15,6 +16,11 @@ export default function Crowdplay() {
     target: containerRef,
     offset: ["start end", "end start"] // Adjust offset as needed
   });
+
+  // State to control starburst animation
+  const [headingAnimationComplete, setHeadingAnimationComplete] = useState(false);
+  const starburstContainerRef = useRef<HTMLDivElement>(null); // Ref for starburst container
+  const isStarburstInView = useInView(starburstContainerRef, { once: false, amount: 0.1 }); // Detect if starburst container is in view
 
   // Parallax effect: Move slower than scroll, staying static initially
   const y = useTransform(scrollYProgress, [0, 0.3, 1], ['0%', '-50%', '-50%']);
@@ -154,15 +160,21 @@ export default function Crowdplay() {
       <Section className="max-w-5xl mx-auto py-4 relative pt-[400px]">
 
         <motion.div
-          initial={{ opacity: 0, x: 100 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, x: 100, filter: 'blur(16px)' }}
+          whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
           viewport={{ once: false, amount: 0.5 }}
-          transition={{ duration: 0.5 }}
+          transition={{ type: "spring", duration: 2, bounce: 0.05 }}
+          style={{ willChange: 'transform, opacity, filter', transform: 'translateZ(0)' }}
+          onAnimationComplete={() => setHeadingAnimationComplete(true)}
+          className="relative z-10"
         >
           <Heading as="h2" level={1} className="text-center text-white relative z-10">Two Unique Platforms</Heading>
         </motion.div>
-        <div className="absolute top-0 -left-[400px] w-full h-full">
-          <img src="/starburst.svg" alt="Starburst" className="w-[800px] h-[800px] absolute top-0 left-0 z-0"/>
+        <div ref={starburstContainerRef} className="absolute top-0 -left-[400px] w-full h-full">
+          <AnimatedStarburst
+            className="w-[800px] h-[800px] absolute top-0 left-0 z-0"
+            startAnimation={headingAnimationComplete && isStarburstInView}
+          />
         </div>
           
         <BlurredSphere 

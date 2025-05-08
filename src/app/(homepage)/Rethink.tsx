@@ -2,12 +2,13 @@
 
 import { Section } from '@/components/Section';
 import { Heading, Text } from '@/components/typography';
-import { motion, useScroll, useTransform } from 'motion/react';
-import { useRef } from 'react';
+import { motion, useScroll, useTransform, useInView } from 'motion/react';
+import { useRef, useState } from 'react';
 // import { IPhone } from './components/iPhone'; // No longer directly used here
 import { BlurredSphere } from '@/components/BlurredSphere';
 import { Button } from '@/components/Button';
 import { DynamicIPhoneWithContent } from './components/DynamicIPhoneWithContent'; // Import the new component
+import { AnimatedStarburst } from './AnimatedStarburst';
 
 export default function Rethink() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -15,6 +16,12 @@ export default function Rethink() {
     target: containerRef,
     offset: ["start end", "end start"] // Adjust offset as needed
   });
+
+  // State to control starburst animation
+  const [headingAnimationComplete, setHeadingAnimationComplete] = useState(false);
+  const starburstContainerRef = useRef<HTMLDivElement>(null); // Ref for starburst container
+  const isStarburstInView = useInView(starburstContainerRef, { once: false, amount: 0.1 }); // Detect if starburst container is in view
+
 
   // Parallax effect: Move slower than scroll, staying static initially
   const y = useTransform(scrollYProgress, [0, 0.3, 1], ['0%', '-50%', '-50%']);
@@ -112,22 +119,87 @@ export default function Rethink() {
 
     <div className="bg-primary-dark text-white pt-[100px] pb-[600px] relative">
         
-        <p className="text-center text-white mt-40">asdf</p>
-        <p className="text-center text-white mt-40">asdf</p>
-        <p className="text-center text-white mt-40">asdf</p>
-        <p className="text-center text-white mt-40">asdf</p>
-        <p className="text-center text-white mt-40">asdf</p>
-        <p className="text-center text-white mt-40">asdf</p>
-        <p className="text-center text-white mt-40">asdf</p>
-        <p className="text-center text-white mt-40">asdf</p>
-        <p className="text-center text-white mt-40">asdf</p>
-        <p className="text-center text-white mt-40">asdf</p>
-        <p className="text-center text-white mt-40">asdf</p>
-        <p className="text-center text-white mt-40">asdf</p>
-        <p className="text-center text-white mt-40">asdf</p>
-        <p className="text-center text-white mt-40">asdf</p>
-        <p className="text-center text-white mt-40">asdf</p>
-        <p className="text-center text-white mt-40">asdf</p>
+      
+        
+      <Section className="max-w-5xl mx-auto py-4 relative">
+          
+        <BlurredSphere 
+          color="bg-primary"
+          size="w-[500px] h-[500px]"
+          opacity="opacity-60"
+          blur="blur-[150px]"
+          position="absolute -top-[5%] -right-[60%]"
+          transform="transform -translate-x-1/2 -translate-y-1/4"
+          zIndex="z-0"
+        />
+          
+        <BlurredSphere 
+          color="bg-primary"
+          size="w-[500px] h-[500px]"
+          opacity="opacity-60"
+          blur="blur-[150px]"
+          position="absolute -top-[5%] -left-[30%]"
+          transform="transform -translate-x-1/2 -translate-y-1/4"
+          zIndex="z-0"
+          />
+          
+        <BlurredSphere 
+          color="bg-accent"
+          size="w-[400px] h-[400px]"
+          opacity="opacity-60"
+          blur="blur-[150px]"
+          position="absolute top-[5%] -left-[10%]"
+          transform="transform -translate-x-1/2 -translate-y-1/4"
+          zIndex="z-0"
+        />
+
+        <div ref={containerRef} className="mt-96 text-center iphone-container relative h-[2000px]">
+          <img src="/rethinkLogo.svg" alt="Crowdplay Logo" className="w-[900px] mx-auto mb-[300px]"/>
+          <motion.div 
+            className="w-[400px] mx-auto sticky top-1/2 z-10 mt-12" 
+            style={{ y, scale }}
+          >
+            <DynamicIPhoneWithContent
+              iphoneClassName="w-full relative"
+              backgroundImageUrl="/homepage/phone-bg.png"
+              contentBoxes={contentBoxes}
+              staggerDelaySeconds={0.15}
+            />
+              
+            <BlurredSphere 
+              color="bg-pink"
+              size="w-[200%]"
+              opacity="opacity-60"
+              blur="blur-[100px]"
+              position="absolute"
+              zIndex="-z-20"
+              className="bottom-0 aspect-square left-1/2"
+              transform="transform -translate-x-1/2"
+            />
+          </motion.div>
+        </div>
+
+        <div className="mt-20 text-center">
+          <Heading as="h2" level={3} className="max-w-2xl mx-auto text-white text-pretty">Merchant Funded Rewards & Offers</Heading>
+        </div>
+      </Section>
+      <div className="container mx-auto mt-10 flex justify-between space-x-8 items-stretch">
+        <div className="flex-1 text-center rounded-3xl bg-primary/5 p-14">
+          <Heading as="h3" level={1} className="text-white">3x</Heading>
+          <Text as="p" className="text-white mt-4">Average Orders Made Per Year</Text>
+        </div>
+        <div className="flex-1 text-center rounded-3xl bg-primary/5 p-14">
+          <Heading as="h3" level={1} className="text-white">4.3x</Heading>
+          <Text as="p" className="text-white mt-4">Average Spend Per Customer</Text>
+        </div>
+        <div className="flex-1 text-center rounded-3xl bg-primary/5 p-14">
+          <Heading as="h3" level={1} className="text-white">29%</Heading>
+          <Text as="p" className="text-white mt-4">Increase Average SpendPer Order</Text>
+        </div>
+      </div>
+      <div className="mt-10 text-center">
+        <Button variant="ghost" inverted>Explore Platform</Button>
+      </div>
     </div>
   </>
   );

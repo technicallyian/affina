@@ -45,16 +45,22 @@ const Spinner = () => {
   });
 
   return (
-    <div ref={targetRef} style={{ height: '200vh', position: 'relative' }}>
+    <div 
+      ref={targetRef} 
+      style={{
+        height: '200vh', 
+        position: 'relative',
+        width: '80vmin',
+        right: '-100vmin'
+      }}
+    >
       <motion.div
-        className="grid grid-cols-1 gap-20 p-4"
         style={{
           transformOrigin: 'center',
-          width: '80vmin',
-          height: '80vmin',
+          width: '100%',
+          height: '100%',
           rotate: scrollDrivenRotate,
           position: 'sticky',
-          right: '-40vmin',
           top: '50vh',
           y: '-50%',
         }}
