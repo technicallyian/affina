@@ -51,7 +51,7 @@ function Model() {
 
 export default function ThreeD() {
   return (
-    <div className="fixed top-24 left-1/2 -translate-x-1/2 z-[-1] w-full h-[1000px] bg-gradient-to-b from-white from-2% via-[#DAFAFF] to-white to-98%">
+    <div className="fixed top-0 left-1/2 -translate-x-1/2 z-[-1] w-full h-screen bg-gradient-to-b from-white from-2% via-[#DAFAFF] to-white to-98%">
       <Canvas camera={{ position: [0, 0, 500], fov: 1 }}>
         <ambientLight intensity={Math.PI} />
         <directionalLight position={[10, 10, 5]} intensity={1} />
