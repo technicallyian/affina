@@ -23,6 +23,14 @@ const cardVariants = {
     y: -i * 25,
     transformOrigin: "center center",
   }),
+  exitingToBottom: {
+    opacity: 0,
+    rotate: 15,
+    scale: 0.9,
+    y: 150, // Move down
+    transformOrigin: "center center",
+    transition: { type: "tween", duration: 0.3, ease: "easeIn" }, // Quick exit
+  },
 };
 
 export default function Testimonials() {
@@ -50,16 +58,26 @@ export default function Testimonials() {
   ];
 
   const [currentTestimonials, setCurrentTestimonials] = useState(testimonialData);
+  const [exitingCardName, setExitingCardName] = useState<string | null>(null);
 
   const handleNext = () => {
-    setCurrentTestimonials(prev => {
-      const newStack = [...prev];
-      const first = newStack.shift();
-      if (first) {
-        newStack.push(first);
-      }
-      return newStack;
-    });
+    if (exitingCardName || currentTestimonials.length === 0) return; // Prevent multiple clicks during exit or if no cards
+    setExitingCardName(currentTestimonials[0].name);
+  };
+
+  const handleAnimationComplete = (definition: any, cardName: string) => {
+    if (definition === "exitingToBottom" && exitingCardName === cardName) {
+      setCurrentTestimonials(prev => {
+        const newStack = [...prev];
+        const indexToMove = newStack.findIndex(t => t.name === exitingCardName);
+        if (indexToMove !== -1) {
+          const [cardToMove] = newStack.splice(indexToMove, 1);
+          newStack.push(cardToMove);
+        }
+        return newStack;
+      });
+      setExitingCardName(null);
+    }
   };
 
   return (
@@ -67,7 +85,7 @@ export default function Testimonials() {
       <div className="bg-primary-dark text-white text-center pb-40 pt-20 flex flex-col items-center">
         <div className="flex items-center justify-center space-x-4">
           <button
-            onClick={() => console.log("Previous arrow clicked")}
+            onClick={() => console.log("Previous arrow clicked")} // Placeholder for previous testimonial logic
             className="p-2 rounded-full hover:bg-white/10 transition-colors"
             aria-label="Previous testimonial"
           >
@@ -78,6 +96,13 @@ export default function Testimonials() {
               const isFrontCard = index === 0;
               const zIndex = currentTestimonials.length - index;
 
+              let animateState = "back";
+              if (exitingCardName === testimonial.name) {
+                animateState = "exitingToBottom";
+              } else if (isFrontCard) {
+                animateState = "front";
+              }
+
               return (
                 <motion.div
                   key={testimonial.name}
@@ -86,14 +111,14 @@ export default function Testimonials() {
                   className={`w-full h-full ${CARD_BACKGROUND_COLOR} p-8 rounded-3xl flex flex-col justify-center absolute top-0 left-0 cursor-grab`}
                   style={{ zIndex }}
                   variants={cardVariants}
-                  animate={isFrontCard ? "front" : "back"}
-                  custom={index}
-                  // Temporarily remove transition for diagnostics
-                  // transition={{
-                  //   type: "spring",
-                  //   stiffness: 300,
-                  //   damping: 30,
-                  // }}
+                  animate={animateState}
+                  custom={index} // For 'back' variant
+                  transition={{ // Main spring transition
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 30,
+                  }}
+                  onAnimationComplete={(definition) => handleAnimationComplete(definition, testimonial.name)}
                 >
                   <div className="flex flex-col items-start text-left">
                     <p className="text-lg italic mb-4">{testimonial.text}</p>
