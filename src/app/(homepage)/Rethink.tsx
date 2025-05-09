@@ -9,6 +9,7 @@ import { BlurredSphere } from '@/components/BlurredSphere';
 import { Button } from '@/components/Button';
 import { DynamicIPhoneWithContent } from './components/DynamicIPhoneWithContent'; // Import the new component
 import { AnimatedStarburst } from './AnimatedStarburst';
+import { AnimatedNumber } from './components/AnimatedNumber'; // Import the new component
 
 export default function Rethink() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -185,15 +186,21 @@ export default function Rethink() {
       </Section>
       <div className="container mx-auto mt-10 flex justify-between space-x-8 items-stretch">
         <div className="flex-1 text-center rounded-3xl bg-primary/5 p-14">
-          <Heading as="h3" level={1} className="text-white">3x</Heading>
+          <Heading as="h3" level={1} className="text-white">
+            <AnimatedNumber targetNumber={3} textAfter="x" />
+          </Heading>
           <Text as="p" className="text-white mt-4">Average Orders Made Per Year</Text>
         </div>
         <div className="flex-1 text-center rounded-3xl bg-primary/5 p-14">
-          <Heading as="h3" level={1} className="text-white">4.3x</Heading>
+          <Heading as="h3" level={1} className="text-white">
+            <AnimatedNumber targetNumber={4.3} textAfter="x" />
+          </Heading>
           <Text as="p" className="text-white mt-4">Average Spend Per Customer</Text>
         </div>
         <div className="flex-1 text-center rounded-3xl bg-primary/5 p-14">
-          <Heading as="h3" level={1} className="text-white">29%</Heading>
+          <Heading as="h3" level={1} className="text-white">
+            <AnimatedNumber targetNumber={29} textAfter="%" />
+          </Heading>
           <Text as="p" className="text-white mt-4">Increase Average SpendPer Order</Text>
         </div>
       </div>

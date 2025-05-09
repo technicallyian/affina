@@ -2,7 +2,6 @@ import { Section } from '@/components/Section';
 import { Hero } from './Hero';
 import ThreeD from './ThreeD';
 import LogoSlider from './LogoSlider';
-import Experience from './Experience';
 import Platforms from './Platforms';
 import Crowdplay from './Crowdplay';
 import Rethink from './Rethink';
@@ -17,7 +16,6 @@ export default function Home() {
       </Section>
 
       <LogoSlider />
-      <Experience />
       <Platforms />
       <Crowdplay />
       <Rethink />

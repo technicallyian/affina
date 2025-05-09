@@ -9,6 +9,7 @@ import { BlurredSphere } from '@/components/BlurredSphere';
 import { Button } from '@/components/Button';
 import { DynamicIPhoneWithContent } from './components/DynamicIPhoneWithContent'; // Import the new component
 import { AnimatedStarburst } from './AnimatedStarburst';
+import { AnimatedNumber } from './components/AnimatedNumber'; // Import the new component
 
 export default function Crowdplay() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -116,33 +117,36 @@ export default function Crowdplay() {
   return (
     <>
 
-    <div className="bg-primary-dark text-white pt-[100px] pb-[600px] relative">
+    <div 
+      className="bg-primary-dark text-white pt-[100px] pb-[600px] relative"
+      style={{ isolation: 'isolate' as any }}
+    >
         
-      {/*<div className="flex justify-center items-center gap-[100px] absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <div
+      {/*<div className="flex justify-center items-start gap-[100px] absolute top-0 left-1/2 transform -translate-x-1/2">
+        <div
           className="bg-white relative z-50"
           style={{
             width: 'calc(100vw - 100px)',
-            height: 'calc((100vw - 100px) * 0.75)',
+            height: 'calc((100vw - 100px) * 0.3)',
             minWidth: '100px',
-            minHeight: '75px',
             borderTopLeftRadius: 0,
             borderTopRightRadius: 0,
-            borderBottomLeftRadius: '50%',
-            borderBottomRightRadius: '50%',
+            borderBottomLeftRadius: '50% 100%',
+            borderBottomRightRadius: '50% 100%',
+            mixBlendMode: 'destination-out' as any,
           }}
         />
         <div
-          className="bg-white"
+          className="bg-white relative z-50"
           style={{
             width: 'calc(100vw - 100px)',
-            height: 'calc((100vw - 100px) * 0.75)',
+            height: 'calc((100vw - 100px) * 0.3)',
             minWidth: '100px',
-            minHeight: '75px',
             borderTopLeftRadius: 0,
             borderTopRightRadius: 0,
-            borderBottomLeftRadius: '50%',
-            borderBottomRightRadius: '50%',
+            borderBottomLeftRadius: '50% 100%',
+            borderBottomRightRadius: '50% 100%',
+            mixBlendMode: 'destination-out' as any,
           }}
         />
           
@@ -239,15 +243,21 @@ export default function Crowdplay() {
       </Section>
       <div className="container mx-auto mt-10 flex justify-between space-x-8 items-stretch">
         <div className="flex-1 text-center rounded-3xl bg-primary/5 p-14">
-          <Heading as="h3" level={1} className="text-white">77%</Heading>
+          <Heading as="h3" level={1} className="text-white">
+            <AnimatedNumber targetNumber={77} textAfter="%" />
+          </Heading>
           <Text as="p" className="text-white mt-4">Daily Engagement</Text>
         </div>
         <div className="flex-1 text-center rounded-3xl bg-primary/5 p-14">
-          <Heading as="h3" level={1} className="text-white">86%</Heading>
+          <Heading as="h3" level={1} className="text-white">
+            <AnimatedNumber targetNumber={86} textAfter="%" />
+          </Heading>
           <Text as="p" className="text-white mt-4">Weekly Engagement</Text>
         </div>
         <div className="flex-1 text-center rounded-3xl bg-primary/5 p-14">
-          <Heading as="h3" level={1} className="text-white">96%</Heading>
+          <Heading as="h3" level={1} className="text-white">
+            <AnimatedNumber targetNumber={96} textAfter="%" />
+          </Heading>
           <Text as="p" className="text-white mt-4">Monthly Engagement</Text>
         </div>
       </div>
