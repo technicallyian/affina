@@ -6,6 +6,8 @@ import Crowdplay from './Crowdplay';
 import Rethink from './Rethink';
 import WhyAffina from './WhyAffina';
 import ThreeD from './ThreeD';
+import Testimonials from './Testimonials';
+
 export default function Home() {
   return (
     <>
@@ -19,6 +21,7 @@ export default function Home() {
       <Crowdplay />
       <Rethink />
       <WhyAffina />
+      <Testimonials />
     </>
   );
 }
