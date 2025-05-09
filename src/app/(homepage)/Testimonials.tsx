@@ -3,8 +3,9 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { motion } from "motion/react";
-
+import { Heading } from "@/components/typography/Heading";
 const CARD_BACKGROUND_COLOR = "bg-[radial-gradient(151.31%_151.31%_at_97.84%_-21.65%,#00CCA8_0%,#1B98E0_97%)]";
+const ANIMATION_SETTLE_DURATION = 700; // ms, for layout animations to settle
 
 const cardVariants = {
   front: {
@@ -27,9 +28,9 @@ const cardVariants = {
     opacity: 0,
     rotate: 15,
     scale: 0.9,
-    y: 150, // Move down
+    y: 150,
     transformOrigin: "center center",
-    transition: { type: "tween", duration: 0.3, ease: "easeIn" }, // Quick exit
+    transition: { type: "tween", duration: 0.3, ease: "easeIn" },
   },
 };
 
@@ -59,10 +60,28 @@ export default function Testimonials() {
 
   const [currentTestimonials, setCurrentTestimonials] = useState(testimonialData);
   const [exitingCardName, setExitingCardName] = useState<string | null>(null);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   const handleNext = () => {
-    if (exitingCardName || currentTestimonials.length === 0) return; // Prevent multiple clicks during exit or if no cards
+    if (isAnimating || currentTestimonials.length === 0) return;
+    setIsAnimating(true);
     setExitingCardName(currentTestimonials[0].name);
+  };
+
+  const handlePrevious = () => {
+    if (isAnimating || currentTestimonials.length <= 1) return;
+    setIsAnimating(true);
+    setCurrentTestimonials(prev => {
+      const newStack = [...prev];
+      const last = newStack.pop();
+      if (last) {
+        newStack.unshift(last);
+      }
+      return newStack;
+    });
+    setTimeout(() => {
+      setIsAnimating(false);
+    }, ANIMATION_SETTLE_DURATION);
   };
 
   const handleAnimationComplete = (definition: any, cardName: string) => {
@@ -77,17 +96,22 @@ export default function Testimonials() {
         return newStack;
       });
       setExitingCardName(null);
+      setIsAnimating(false);
     }
   };
 
   return (
     <>
       <div className="bg-primary-dark text-white text-center pb-40 pt-20 flex flex-col items-center">
+
+        <Heading level={3} as="h2" className="text-center text-white mb-40">What people are saying</Heading>
+
         <div className="flex items-center justify-center space-x-4">
           <button
-            onClick={() => console.log("Previous arrow clicked")} // Placeholder for previous testimonial logic
+            onClick={handlePrevious}
             className="p-2 rounded-full hover:bg-white/10 transition-colors"
             aria-label="Previous testimonial"
+            disabled={isAnimating}
           >
             <ChevronLeft size={32} />
           </button>
@@ -112,8 +136,8 @@ export default function Testimonials() {
                   style={{ zIndex }}
                   variants={cardVariants}
                   animate={animateState}
-                  custom={index} // For 'back' variant
-                  transition={{ // Main spring transition
+                  custom={index}
+                  transition={{
                     type: "spring",
                     stiffness: 300,
                     damping: 30,
@@ -133,6 +157,7 @@ export default function Testimonials() {
             onClick={handleNext}
             className="p-2 rounded-full hover:bg-white/10 transition-colors"
             aria-label="Next testimonial"
+            disabled={isAnimating}
           >
             <ChevronRight size={32} />
           </button>

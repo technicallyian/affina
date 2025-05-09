@@ -7,6 +7,7 @@ import Rethink from './Rethink';
 import WhyAffina from './WhyAffina';
 import ThreeD from './ThreeD';
 import Testimonials from './Testimonials';
+import Loyalty from './Loyalty';
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
       <Rethink />
       <WhyAffina />
       <Testimonials />
+      <Loyalty />
     </>
   );
 }
