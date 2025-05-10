@@ -5,7 +5,7 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import { Heading } from "@/components/typography/Heading";
 const CARD_BACKGROUND_COLOR = "bg-[radial-gradient(151.31%_151.31%_at_97.84%_-21.65%,#00CCA8_0%,#1B98E0_97%)]";
-const ANIMATION_SETTLE_DURATION = 700; // ms, for layout animations to settle
+const ANIMATION_SETTLE_DURATION = 700;
 
 const cardVariants = {
   front: {

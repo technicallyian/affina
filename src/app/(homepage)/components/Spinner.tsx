@@ -1,17 +1,15 @@
 'use client';
 
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Property } from 'csstype';
-import { motion, useScroll, useTransform } from 'motion/react';
+import { motion, useTransform, MotionValue } from 'motion/react';
 
-const Spinner = () => {
-  const targetRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-    offset: ["start end", "end start"]
-  });
+interface SpinnerProps {
+  parentScrollYProgress: MotionValue<number>;
+}
 
-  const scrollDrivenRotate = useTransform(scrollYProgress, [0, 1], [0, 150]);
+const Spinner = ({ parentScrollYProgress }: SpinnerProps) => {
+  const scrollDrivenRotate = useTransform(parentScrollYProgress, [0, 1], [0, 150]);
 
   const NUM_CARDS = 6;
   const RADIUS_VW_PERCENTAGE = 60;
@@ -46,12 +44,10 @@ const Spinner = () => {
 
   return (
     <div 
-      ref={targetRef} 
       style={{
         height: '200vh', 
         position: 'relative',
-        width: '80vmin',
-        right: '-100vmin'
+        right: '-90%'
       }}
     >
       <motion.div
