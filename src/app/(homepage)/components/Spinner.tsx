@@ -9,7 +9,7 @@ interface SpinnerProps {
 }
 
 const Spinner = ({ parentScrollYProgress }: SpinnerProps) => {
-  const scrollDrivenRotate = useTransform(parentScrollYProgress, [0, 1], [0, 150]);
+  const scrollDrivenRotate = useTransform(parentScrollYProgress, [0, 1], [0, 230]);
 
   const NUM_CARDS = 6;
   const RADIUS_VW_PERCENTAGE = 60;
@@ -26,7 +26,7 @@ const Spinner = ({ parentScrollYProgress }: SpinnerProps) => {
     return () => window.removeEventListener('resize', calculatePixelRadius);
   }, [RADIUS_VW_PERCENTAGE]);
 
-  const START_ANGLE_DEGREES = 180;
+  const START_ANGLE_DEGREES = 130;
   const ANGLE_STEP_DEGREES = -180 / (NUM_CARDS - 1);
 
   const cards = Array(NUM_CARDS).fill(null);
@@ -45,9 +45,10 @@ const Spinner = ({ parentScrollYProgress }: SpinnerProps) => {
   return (
     <div 
       style={{
-        height: '200vh', 
+        height: '180vh', 
         position: 'relative',
-        right: '-90%'
+        right: '-90%',
+        top: '20vh'
       }}
     >
       <motion.div
