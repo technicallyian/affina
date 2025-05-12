@@ -1,18 +1,17 @@
 'use client';
 
 import { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, MotionValue, useTransform } from 'motion/react';
+import { motion, useScroll, MotionValue } from 'motion/react';
 import Spinner from './components/Spinner';
 import { Heading } from '@/components/typography';
-import { Smartphone, Tablet, Laptop, Tv, Watch, Server } from 'lucide-react';
 
 const platformData = [
-  { id: 1, icon: Smartphone, title: "Mobile First", description: "Engage users seamlessly on any device." },
-  { id: 2, icon: Tablet, title: "Tablet Optimized", description: "Rich experiences tailored for larger screens." },
-  { id: 3, icon: Laptop, title: "Desktop Power", description: "Full-featured loyalty programs for web users." },
-  { id: 4, icon: Tv, title: "Beyond Screens", description: "Integrating loyalty into broader digital ecosystems." },
-  { id: 5, icon: Watch, title: "Wearable Ready", description: "Quick access and notifications on the go." },
-  { id: 6, icon: Server, title: "Robust Backend", description: "Scalable and secure platform infrastructure." },
+  { id: 1, icon: "/icons/Loyalty.svg", title: "White-Labeled & Managed Loyalty Programs", description: "Reward customers for completing actions across your ecosystem." },
+  { id: 2, icon: "/icons/Engagement.svg", title: "Consumer Engagement Platforms", description: "Reward customers for completing actions across your ecosystem." },
+  { id: 3, icon: "/icons/Merchant.svg", title: "Merchant-Funded Loyalty", description: "Reward customers everywhere they shop through 80,000+ brand offers." },
+  { id: 4, icon: "/icons/Cart.svg", title: "Interactive Marketplaces", description: "Robust marketplaces/redemption centers featuring one-click redemptions, sweepstakes, and auctions." },
+  { id: 5, icon: "/icons/Data.svg", title: "Data & Insights", description: "Real-time visibility into customer behavior and intent across your loyalty ecosystem." },
+  { id: 6, icon: "/icons/Game.svg", title: "Gamification", description: "Gamify the customer experience and build long-term loyalty." },
 ];
 
 const NUM_PLATFORMS = platformData.length;
@@ -56,14 +55,14 @@ const Platforms = () => {
               {platformData.map((item, index) => (
                 <motion.div
                   key={item.id}
-                  className="text-center max-w-sm absolute w-full"
+                  className="text-center max-w-lg absolute w-full"
                   style={{ left: '50%', x: '-50%', top: '50%', y: '-50%' }}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: index === activeIndex ? 1 : 0 }}
                   transition={{ duration: 0.3, ease: 'easeInOut' }}
                 >
-                  <item.icon className="w-10 h-10 mx-auto mb-2 text-primary" />
-                  <Heading as="h3" className="text-xl mb-1">{item.title}</Heading>
+                  <Heading as="h3" className="text-[3rem] mb-1 leading-tight">{item.title}</Heading>
+                  <img src={item.icon} alt={item.title} className="w-[10rem] h-[10rem] mx-auto my-14" />
                   <p className="text-muted-foreground">{item.description}</p>
                 </motion.div>
               ))}
