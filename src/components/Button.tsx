@@ -29,7 +29,7 @@ const buttonVariants = cva(
       {
         variant: 'ghost',
         inverted: true,
-        className: 'border-white text-white hover:border-primary hover:text-primary', // Updated Inverted ghost styles
+        className: 'border-white text-white hover:border-primary hover:text-primary',
       },
       // Add other compound variants if needed
     ],

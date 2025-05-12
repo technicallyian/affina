@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from './Navbar';
 import { Logo } from './Logo';
-import { Button } from './Button';
+import { AnimatedButton } from '@/components/AnimatedButton';
 import Link from 'next/link';
 
 const Header = () => {
@@ -15,9 +15,9 @@ const Header = () => {
           <Navbar />
         </div>     
         <div>
-          <Button variant="ghost" size="small">
+          <AnimatedButton variant="ghost" size="small">
             Book a Demo
-          </Button>
+          </AnimatedButton>
         </div>
       </div>
     </header>
