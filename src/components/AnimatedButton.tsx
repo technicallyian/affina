@@ -25,6 +25,12 @@ const starConfigs: StarConfig[] = [
   //{ initialY: 15, initialX: -180, hoverY: 25, hoverX: -210, delay: 0.15, iconClassName: 'h-[0.7rem] w-[0.7rem]' },
 ];
 
+const smallStarConfigs: StarConfig[] = [
+  { initialY: -20, initialX: -25, hoverY: -30, hoverX: -10, delay: 0, iconClassName: 'h-[0.6rem] w-[0.6rem]' },
+  { initialY: -10, initialX: -15, hoverY: -25, hoverX: 0, delay: 0.05, iconClassName: 'h-[0.9rem] w-[0.9rem]' },
+  { initialY: -6, initialX: -8, hoverY: -8, hoverX: 10, delay: 0.1, iconClassName: 'h-[1.1rem] w-[1.1rem]' },
+];
+
 export interface AnimatedButtonProps
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'>,
     VariantProps<typeof buttonVariants> {
@@ -41,7 +47,8 @@ const AnimatedButton = React.forwardRef<
     ...restProps 
   } = props as AnimatedButtonProps & HTMLMotionProps<"button">;
 
-  const starControls = starConfigs.map(() => useAnimationControls());
+  const currentStarConfigs = size === 'small' ? smallStarConfigs : starConfigs;
+  const starControls = currentStarConfigs.map(() => useAnimationControls());
   const [isHovering, setIsHovering] = useState(false);
   const isHoveringRef = useRef(isHovering);
 
@@ -52,7 +59,7 @@ const AnimatedButton = React.forwardRef<
   const handleHoverStartInternal = () => {
     setIsHovering(true);
     starControls.forEach((controls, index) => {
-      const config = starConfigs[index];
+      const config = currentStarConfigs[index];
       controls.start({
         opacity: 1, y: config.hoverY, x: config.hoverX,
         transition: { type: 'spring', stiffness: 260, damping: 20, delay: config.delay }
@@ -76,7 +83,7 @@ const AnimatedButton = React.forwardRef<
   const handleHoverEndInternal = () => {
     setIsHovering(false);
     starControls.forEach((controls, index) => {
-      const config = starConfigs[index];
+      const config = currentStarConfigs[index];
       controls.stop(); 
       controls.start({ 
         opacity: 0,
@@ -107,7 +114,7 @@ const AnimatedButton = React.forwardRef<
       >
         <span className="relative z-20 group-hover:text-foreground">{children}</span>
 
-        {starConfigs.map((config, index) => (
+        {currentStarConfigs.map((config, index) => (
           <motion.div
             key={index}
             className="absolute top-1/2 left-full -translate-y-1/2 z-10"
@@ -134,18 +141,18 @@ const AnimatedButton = React.forwardRef<
           >
             <BlurredSphere
               color="bg-secondary"
-              size="w-20 h-20"
+              size={size === 'small' ? "w-8 h-8" : "w-20 h-20"}
               opacity="opacity-100"
-              blur="blur-xl"
-              position="absolute top-[30%] left-[20%]"
+              blur={size === 'small' ? "blur-lg" : "blur-xl"}
+              position={size === 'small' ? "absolute top-[25%] left-[20%]" : "absolute top-[30%] left-[20%]"}
               zIndex="z-0"
             />
             <BlurredSphere
               color="bg-accent"
-              size="w-20 h-20"
+              size={size === 'small' ? "w-8 h-8" : "w-20 h-20"}
               opacity="opacity-100"
-              blur="blur-xl"
-              position="absolute top-[30%] right-[20%]"
+              blur={size === 'small' ? "blur-lg" : "blur-xl"}
+              position={size === 'small' ? "absolute top-[25%] right-[20%]" : "absolute top-[30%] right-[20%]"}
               zIndex="z-0"
             />
           </motion.div>
