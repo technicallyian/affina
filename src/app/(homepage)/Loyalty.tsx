@@ -1,4 +1,4 @@
-import { Button } from '@/components/Button';
+import { AnimatedButton } from '@/components/AnimatedButton';
 import { Heading } from '@/components/typography/Heading';
 import { Text } from '@/components/typography/Text';
 export default function Loyalty() {
@@ -9,7 +9,7 @@ export default function Loyalty() {
         <Text as="p" className="text-center text-white mt-10">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </Text>
-        <Button variant="ghost" size="large" className="mt-10" inverted>Learn More</Button>
+        <AnimatedButton variant="ghost" size="large" className="mt-10" inverted>Learn More</AnimatedButton>
       </div>
     </div>
   );
