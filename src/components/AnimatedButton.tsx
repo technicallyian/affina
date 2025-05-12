@@ -7,6 +7,12 @@ import { clsx } from 'clsx';
 import { buttonVariants } from './Button'; // Only import variants
 import AffinaIcon from './icons/AffinaIcon';
 
+// Define simple variants for the button itself
+const buttonMotionVariants = {
+  initial: {},
+  hover: {}
+};
+
 // Define AnimatedButtonProps based on buttonVariants and add children
 export interface AnimatedButtonProps
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'>, // Omit conflicting props if necessary
@@ -19,13 +25,13 @@ const AnimatedButton = React.forwardRef<HTMLButtonElement, AnimatedButtonProps>(
     const iconVariants = {
       initial: {
         opacity: 0,
-        y: 0,
-        x: 160
+        y: -20,
+        x: -5
       },
       hover: {
         opacity: 1,
-        y: -20, 
-        x: 170,
+        y: -40,
+        x: 5,
         transition: {
           type: 'spring',
           stiffness: 260,
@@ -42,18 +48,17 @@ const AnimatedButton = React.forwardRef<HTMLButtonElement, AnimatedButtonProps>(
         ref={ref}
         className={clsx(
           buttonVariants({ variant, size, inverted, className }), // Restore button styles
-          'relative inline-flex' // Keep relative positioning and add inline-flex
+          'relative inline-flex items-center' // Keep relative positioning, add inline-flex and items-center
         )}
+        variants={buttonMotionVariants} // Add variants to the button
         whileHover="hover"
         initial="initial"
         {...motionProps} // Spread the correctly typed props
       >
-        <span className="relative z-10">{children}</span>
+        <span className="relative z-10 mr-2">{children}</span>
         <motion.div
           variants={iconVariants}
-          className="absolute top-0 left-0 right-0 z-0"
-          initial="initial"
-          inherit={false}
+          className="absolute top-1/2 left-full -translate-y-1/2 z-0"
         >
           <AffinaIcon className="h-[1rem] w-[1rem]" />
         </motion.div>
