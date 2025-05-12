@@ -9,7 +9,7 @@ export default function Loyalty() {
         <Text as="p" className="text-center text-white mt-10">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </Text>
-        <AnimatedButton variant="ghost" size="large" className="mt-10" inverted>Learn More</AnimatedButton>
+        <AnimatedButton variant="ghost" size="large" className="mt-10" inverted>Book a demo</AnimatedButton>
       </div>
     </div>
   );
