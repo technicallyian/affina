@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "../components/Header";
 import CustomCursor from "../components/CustomCursor";
 import GlobalStyle from "../components/GlobalStyle";
+import Footer from "../components/Footer";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -36,6 +37,7 @@ export default function RootLayout({
       >
         <Header />
         <main>{children}</main>
+        <Footer />
         <CustomCursor />
       </body>
     </html>

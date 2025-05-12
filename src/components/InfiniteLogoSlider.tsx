@@ -29,7 +29,7 @@ const InfiniteLogoSlider: React.FC<InfiniteLogoSliderProps> = ({
       blurBorders={blurBorders}
       blurBorderColor={blurBorderColor}
     >
-      {children}
+      {React.Children.toArray(children) as React.ReactElement[]}
     </Slider>
   );
 };
