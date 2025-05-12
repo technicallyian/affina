@@ -13,6 +13,45 @@ const buttonMotionVariants = {
   hover: {}
 };
 
+// Variants for the first star
+const iconVariants = {
+  initial: {
+    opacity: 0,
+    y: -40, 
+    x: -35   
+  },
+  hover: {
+    opacity: 1,
+    y: -60, 
+    x: -20,
+    transition: {
+      type: 'spring',
+      stiffness: 260,
+      damping: 20,
+    },
+  },
+};
+
+// Variants for the second star
+const iconVariants2 = {
+  initial: {
+    opacity: 0,
+    y: -20, 
+    x: -20   
+  },
+  hover: {
+    opacity: 1,
+    y: -45, // Slightly different ending Y from the first star
+    x: 0,  // Slightly different ending X from the first star
+    transition: {
+      type: 'spring',
+      stiffness: 260,
+      damping: 20,
+      delay: 0.05 // Slight delay for the second star
+    },
+  },
+};
+
 // Define AnimatedButtonProps based on buttonVariants and add children
 export interface AnimatedButtonProps
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'>, // Omit conflicting props if necessary
@@ -22,24 +61,6 @@ export interface AnimatedButtonProps
 
 const AnimatedButton = React.forwardRef<HTMLButtonElement, AnimatedButtonProps>(
   ({ className, children, variant, size, inverted, ...props }, ref) => {
-    const iconVariants = {
-      initial: {
-        opacity: 0,
-        y: -20,
-        x: -5
-      },
-      hover: {
-        opacity: 1,
-        y: -40,
-        x: 5,
-        transition: {
-          type: 'spring',
-          stiffness: 260,
-          damping: 20,
-        },
-      },
-    };
-
     // Cast props to the expected type for motion.button
     const motionProps = props as Omit<HTMLMotionProps<"button">, keyof AnimatedButtonProps | 'ref'>;
 
@@ -56,11 +77,21 @@ const AnimatedButton = React.forwardRef<HTMLButtonElement, AnimatedButtonProps>(
         {...motionProps} // Spread the correctly typed props
       >
         <span className="relative z-10 mr-2">{children}</span>
+        
+        {/* First star */}
         <motion.div
           variants={iconVariants}
           className="absolute top-1/2 left-full -translate-y-1/2 z-0"
         >
-          <AffinaIcon className="h-[1rem] w-[1rem]" />
+          <AffinaIcon className="h-[0.8rem] w-[0.8rem]" />
+        </motion.div>
+        
+        {/* Second star */}
+        <motion.div
+          variants={iconVariants2}
+          className="absolute top-1/2 left-full -translate-y-1/2 z-0"
+        >
+          <AffinaIcon className="h-[1.2rem] w-[1.2rem]" />
         </motion.div>
       </motion.button>
     );
