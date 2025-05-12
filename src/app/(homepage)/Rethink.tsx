@@ -4,12 +4,10 @@ import { Section } from '@/components/Section';
 import { Heading, Text } from '@/components/typography';
 import { motion, useScroll, useTransform, useInView } from 'motion/react';
 import { useRef, useState } from 'react';
-// import { IPhone } from './components/iPhone'; // No longer directly used here
 import { BlurredSphere } from '@/components/BlurredSphere';
 import { Button } from '@/components/Button';
-import { DynamicIPhoneWithContent } from './components/DynamicIPhoneWithContent'; // Import the new component
-import { AnimatedStarburst } from './AnimatedStarburst';
-import { AnimatedNumber } from './components/AnimatedNumber'; // Import the new component
+import { DynamicIPhoneWithContent } from './components/DynamicIPhoneWithContent'; 
+import { AnimatedNumber } from './components/AnimatedNumber'; 
 
 export default function Rethink() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -17,11 +15,6 @@ export default function Rethink() {
     target: containerRef,
     offset: ["start end", "end start"] // Adjust offset as needed
   });
-
-  // State to control starburst animation
-  const [headingAnimationComplete, setHeadingAnimationComplete] = useState(false);
-  const starburstContainerRef = useRef<HTMLDivElement>(null); // Ref for starburst container
-  const isStarburstInView = useInView(starburstContainerRef, { once: false, amount: 0.1 }); // Detect if starburst container is in view
 
 
   // Parallax effect: Move slower than scroll, staying static initially
@@ -118,43 +111,10 @@ export default function Rethink() {
   return (
     <>
 
-    <div className="bg-primary-dark text-white pt-[100px] pb-[600px] relative">
-        
-      
-        
+    <div className="bg-primary-dark text-white pt-[100px] pb-[10rem] relative">
+ 
       <Section className="max-w-5xl mx-auto py-4 relative">
-          
-        <BlurredSphere 
-          color="bg-primary"
-          size="w-[500px] h-[500px]"
-          opacity="opacity-60"
-          blur="blur-[150px]"
-          position="absolute -top-[5%] -right-[60%]"
-          transform="transform -translate-x-1/2 -translate-y-1/4"
-          zIndex="z-0"
-        />
-          
-        <BlurredSphere 
-          color="bg-primary"
-          size="w-[500px] h-[500px]"
-          opacity="opacity-60"
-          blur="blur-[150px]"
-          position="absolute -top-[5%] -left-[30%]"
-          transform="transform -translate-x-1/2 -translate-y-1/4"
-          zIndex="z-0"
-          />
-          
-        <BlurredSphere 
-          color="bg-accent"
-          size="w-[400px] h-[400px]"
-          opacity="opacity-60"
-          blur="blur-[150px]"
-          position="absolute top-[5%] -left-[10%]"
-          transform="transform -translate-x-1/2 -translate-y-1/4"
-          zIndex="z-0"
-        />
-
-        <div ref={containerRef} className="mt-96 text-center iphone-container relative h-[2000px]">
+        <div ref={containerRef} className="mt-[1rem] text-center iphone-container relative h-[2000px]">
           <img src="/rethinkLogo.svg" alt="Crowdplay Logo" className="w-[900px] mx-auto mb-[300px]"/>
           <motion.div 
             className="w-[400px] mx-auto sticky top-1/2 z-10 mt-12" 
@@ -205,7 +165,7 @@ export default function Rethink() {
         </div>
       </div>
       <div className="mt-10 text-center">
-        <Button variant="ghost" inverted>Explore Platform</Button>
+        <Button variant="ghost" size="large" inverted>Explore Platform</Button>
       </div>
     </div>
   </>

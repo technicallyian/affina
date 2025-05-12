@@ -118,7 +118,7 @@ export default function Crowdplay() {
     <>
 
     <div 
-      className="bg-primary-dark text-white pt-[100px] pb-[600px] relative"
+      className="bg-primary-dark text-white pt-[100px] pb-[20rem] relative"
       style={{ isolation: 'isolate' as any }}
     >
         
@@ -161,7 +161,7 @@ export default function Crowdplay() {
         />
       </div>*/}
         
-      <Section className="max-w-5xl mx-auto py-4 relative pt-[400px]">
+      <Section className="mx-auto py-4 relative pt-[400px]">
 
         <motion.div
           initial={{ opacity: 0, x: 100, filter: 'blur(16px)' }}
@@ -172,12 +172,11 @@ export default function Crowdplay() {
           onAnimationComplete={() => setHeadingAnimationComplete(true)}
           className="relative z-10"
         >
-          <Heading as="h2" level={1} className="text-center text-white relative z-10">Two Unique Platforms</Heading>
+          <Heading as="h2" level={1} className="text-center text-white relative z-10 text-[7rem]">Two Unique Platforms</Heading>
         </motion.div>
         <div ref={starburstContainerRef} className="absolute top-0 -left-[400px] w-full h-full">
           <AnimatedStarburst
             className="w-[800px] h-[800px] absolute top-0 left-0 z-0"
-            startAnimation={headingAnimationComplete && isStarburstInView}
           />
         </div>
           
@@ -211,7 +210,7 @@ export default function Crowdplay() {
           zIndex="z-0"
         />
 
-        <div ref={containerRef} className="mt-96 text-center iphone-container relative h-[2000px]">
+        <div ref={containerRef} className="mt-[40rem] text-center iphone-container relative h-[2000px]">
           <img src="/crowdplayLogo.svg" alt="Crowdplay Logo" className="w-[900px] mx-auto mb-[300px]"/>
           <motion.div 
             className="w-[400px] mx-auto sticky top-1/2 z-10 mt-12" 
@@ -262,7 +261,7 @@ export default function Crowdplay() {
         </div>
       </div>
       <div className="mt-10 text-center">
-        <Button variant="ghost" inverted>Learn More</Button>
+        <Button variant="ghost" size="large" inverted>Learn More</Button>
       </div>
       
     </div>

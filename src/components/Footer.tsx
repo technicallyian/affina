@@ -35,7 +35,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Right Section: Links */}
         <div className="flex gap-x-16">
           <div>
             <h3 className="font-bold mb-2">Solutions</h3>

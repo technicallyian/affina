@@ -18,7 +18,6 @@ const starburstPathData = starburstPaths.map((d, index) => ({
 }));
 
 const originalStrokeWidth = "1.00027";
-const maskStrokeWidth = "2"; // Should be thick enough to cover the original stroke
 
 const GradientDefinitions = () => (
   <>
@@ -55,49 +54,26 @@ const GradientDefinitions = () => (
 
 interface AnimatedStarburstProps {
   className?: string;
-  startAnimation?: boolean;
 }
 
-export const AnimatedStarburst = ({ className, startAnimation = false }: AnimatedStarburstProps) => {
+export const AnimatedStarburst = ({ className }: AnimatedStarburstProps) => {
   return (
     <motion.svg
       viewBox="0 0 890 890"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
-      initial="hidden"
-      animate={startAnimation ? "visible" : "hidden"}
+      animate={{
+        rotate: 360,
+      }}
+      transition={{
+        duration: 60, // Duration for one full rotation (in seconds)
+        repeat: Infinity,
+        ease: 'linear',
+      }}
     >
       <defs>
         <GradientDefinitions />
-        <mask id="starburstMask">
-          {starburstPathData.map((pathData, index) => (
-            <motion.path
-              key={`mask-${index}`}
-              d={pathData.d}
-              fill="none"
-              stroke="white"
-              strokeWidth={maskStrokeWidth}
-              variants={{
-                hidden: {
-                  pathLength: 0,
-                  opacity: 0,
-                  strokeDashoffset: 1,
-                },
-                visible: {
-                  pathLength: 1,
-                  opacity: 1,
-                  strokeDashoffset: 0,
-                },
-              }}
-              transition={{
-                pathLength: { delay: index * 0.1, type: "spring", duration: 0.75, bounce: 0 },
-                strokeDashoffset: { delay: index * 0.1, type: "spring", duration: 0.75, bounce: 0 },
-                opacity: { delay: index * 0.1, duration: 0.01 },
-              }}
-            />
-          ))}
-        </mask>
       </defs>
 
       {starburstPathData.map((pathData, index) => (
@@ -107,7 +83,6 @@ export const AnimatedStarburst = ({ className, startAnimation = false }: Animate
           stroke={pathData.strokeUrl}
           strokeWidth={originalStrokeWidth}
           fill="none"
-          mask="url(#starburstMask)"
         />
       ))}
     </motion.svg>

@@ -115,7 +115,7 @@ export default function Testimonials() {
           >
             <ChevronLeft size={32} />
           </button>
-          <div className="relative w-[500px] aspect-[3/2]">
+          <div className="relative w-[800px] aspect-[3/2]">
             {currentTestimonials.map((testimonial, index) => {
               const isFrontCard = index === 0;
               const zIndex = currentTestimonials.length - index;
@@ -132,7 +132,7 @@ export default function Testimonials() {
                   key={testimonial.name}
                   layout
                   layoutId={testimonial.name}
-                  className={`w-full h-full ${CARD_BACKGROUND_COLOR} p-8 rounded-3xl flex flex-col justify-center absolute top-0 left-0 cursor-grab`}
+                  className={`w-full h-full ${CARD_BACKGROUND_COLOR} p-[4rem] rounded-3xl flex flex-col justify-center absolute top-0 left-0 cursor-grab`}
                   style={{ zIndex }}
                   variants={cardVariants}
                   animate={animateState}
@@ -145,9 +145,9 @@ export default function Testimonials() {
                   onAnimationComplete={(definition) => handleAnimationComplete(definition, testimonial.name)}
                 >
                   <div className="flex flex-col items-start text-left">
-                    <p className="text-lg italic mb-4">{testimonial.text}</p>
-                    <p className="font-semibold text-xl">{testimonial.name}</p>
-                    <p className="text-sm text-gray-300">{testimonial.title}</p>
+                    <p className="text-[2rem] mb-4">{testimonial.text}</p>
+                    <p className="font-semibold text-[1.5rem]">{testimonial.name}</p>
+                    <p className="text-[1.5rem]">{testimonial.title}</p>
                   </div>
                 </motion.div>
               );
