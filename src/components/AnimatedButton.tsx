@@ -52,6 +52,46 @@ const iconVariants2 = {
   },
 };
 
+// Variants for the third star
+const iconVariants3 = {
+  initial: {
+    opacity: 0,
+    y: -12, // Different starting Y
+    x: -10  // Different starting X
+  },
+  hover: {
+    opacity: 1,
+    y: -12, // Different ending Y
+    x: 15,  // Different ending X
+    transition: {
+      type: 'spring',
+      stiffness: 260,
+      damping: 20,
+      delay: 0.1 // Slightly longer delay
+    },
+  },
+};
+
+// Variants for the fourth star
+const iconVariants4 = {
+  initial: {
+    opacity: 0,
+    y: 15,  // Different starting Y
+    x: -180  // Different starting X
+  },
+  hover: {
+    opacity: 1,
+    y: 25, // Different ending Y
+    x: -210, // Different ending X
+    transition: {
+      type: 'spring',
+      stiffness: 260,
+      damping: 20,
+      delay: 0.15 // Slightly longer delay again
+    },
+  },
+};
+
 // Define AnimatedButtonProps based on buttonVariants and add children
 export interface AnimatedButtonProps
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'>, // Omit conflicting props if necessary
@@ -76,7 +116,7 @@ const AnimatedButton = React.forwardRef<HTMLButtonElement, AnimatedButtonProps>(
         initial="initial"
         {...motionProps} // Spread the correctly typed props
       >
-        <span className="relative z-10 mr-2">{children}</span>
+        <span className="relative z-10">{children}</span>
         
         {/* First star */}
         <motion.div
@@ -92,6 +132,22 @@ const AnimatedButton = React.forwardRef<HTMLButtonElement, AnimatedButtonProps>(
           className="absolute top-1/2 left-full -translate-y-1/2 z-0"
         >
           <AffinaIcon className="h-[1.2rem] w-[1.2rem]" />
+        </motion.div>
+
+        {/* Third star */}
+        <motion.div
+          variants={iconVariants3}
+          className="absolute top-1/2 left-full -translate-y-1/2 z-0"
+        >
+          <AffinaIcon className="h-[1.5rem] w-[1.5rem]" />
+        </motion.div>
+
+        {/* Fourth star */}
+        <motion.div
+          variants={iconVariants4}
+          className="absolute top-1/2 left-full -translate-y-1/2 z-0"
+        >
+          <AffinaIcon className="h-[0.7rem] w-[0.7rem]" /> { /* Smallest size */}
         </motion.div>
       </motion.button>
     );
