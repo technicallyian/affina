@@ -16,7 +16,7 @@ const platformData = [
 ];
 
 const NUM_PLATFORMS = platformData.length;
-const SCROLL_RANGE_END = 0.7; // Rotation stops at 70% scroll
+const SCROLL_RANGE_END = 0.85; // Sync with Spinner rotation end
 
 const Platforms = () => {
   const containerRef = useRef<HTMLDivElement>(null);
