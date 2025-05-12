@@ -50,7 +50,10 @@ export default function Crowdplay() {
     {
       id: 'lorem2',
       content: (
-        <Image src="/homepage/76ers/76ers-press-conference.png" alt="76ers Press Conference" width={250} height={210} className="rounded-xl shadow-xl"/>
+        <div className="relative">
+          <Image src="/homepage/76ers/76ers-press-conference.png" alt="76ers Press Conference" width={250} height={210} className="rounded-xl shadow-xl" />
+          <Image src="/homepage/76ers/bball-icon.png" alt="Basketball icon" width={134} height={134} className="absolute -bottom-[35%] -right-[20%]" />
+        </div>
       ),
       positionStyles: {
         top: '3.5rem',
@@ -81,23 +84,21 @@ export default function Crowdplay() {
         initial: { opacity: 0, y: 50 },
         whileInView: { opacity: 1, y: 0 },
         viewport: { once: false, amount: 0.4 },
-        transition: { duration: 0.5 } // Delay is now handled by DynamicIPhoneWithContent
+        transition: { duration: 0.5 }
       }
     },
     {
       id: 'lorem4',
       content: (
-        <Text as="p" className="text-xs text-gray-600">
-          Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.
-        </Text>
+        <Image src="/homepage/76ers/discount.png" alt="Apparel discount" width={340} height={397} />
       ),
       positionStyles: {
-        top: '70%',
-        left: 'calc(50% + 40px)',
+        bottom: '4.5rem',
+        right: '-12rem',
         transform: 'translate(-50%, -50%)',
-        width: '220px',
+        width: '340px',
       },
-      className: "bg-white rounded-md p-3 text-black shadow-lg backdrop-blur-sm",
+      className: "",
       motionProps: {
         initial: { opacity: 0, x: -50 },
         whileInView: { opacity: 1, x: 0 },
