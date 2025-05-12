@@ -7,18 +7,17 @@ interface SpinnerProps {
   parentScrollYProgress: MotionValue<number>;
 }
 
-const SCROLL_RANGE_END = 0.85; // Consistent range end
-const ACTIVE_CARD_TARGET_ANGLE = 180; // Angle where card aligns with content
+const SCROLL_RANGE_END = 0.85;
+const ACTIVE_CARD_TARGET_ANGLE = 180;
 const NUM_CARDS = 6;
-const TOTAL_ROTATION_ANGLE = 180; // Total rotation needed (0 to 180 degrees)
+const TOTAL_ROTATION_ANGLE = 180;
 
 const Spinner = ({ parentScrollYProgress }: SpinnerProps) => {
-  // Rotate from 0 to 180 degrees as scroll goes from 0 to SCROLL_RANGE_END
   const scrollDrivenRotate = useTransform(
     parentScrollYProgress, 
     [0, SCROLL_RANGE_END], 
     [0, TOTAL_ROTATION_ANGLE], 
-    { clamp: true } // Stop rotation beyond the range
+    { clamp: true }
   );
 
   const RADIUS_VW_PERCENTAGE = 60;
@@ -35,8 +34,8 @@ const Spinner = ({ parentScrollYProgress }: SpinnerProps) => {
     return () => window.removeEventListener('resize', calculatePixelRadius);
   }, [RADIUS_VW_PERCENTAGE]);
 
-  const START_ANGLE_DEGREES = ACTIVE_CARD_TARGET_ANGLE; // Start with the first card at the target angle
-  const ANGLE_STEP_DEGREES = -TOTAL_ROTATION_ANGLE / (NUM_CARDS - 1); // Spread cards over the rotation range
+  const START_ANGLE_DEGREES = ACTIVE_CARD_TARGET_ANGLE;
+  const ANGLE_STEP_DEGREES = -TOTAL_ROTATION_ANGLE / (NUM_CARDS - 1);
 
   const cards = Array(NUM_CARDS).fill(null);
 

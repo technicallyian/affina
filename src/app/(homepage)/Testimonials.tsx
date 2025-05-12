@@ -1,13 +1,28 @@
 "use client";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
-import { motion } from "motion/react";
+import { useState, useRef, useEffect } from "react";
+import { motion, useInView } from "motion/react";
 import { Heading } from "@/components/typography/Heading";
 const CARD_BACKGROUND_COLOR = "bg-[radial-gradient(151.31%_151.31%_at_97.84%_-21.65%,#00CCA8_0%,#1B98E0_97%)]";
 const ANIMATION_SETTLE_DURATION = 700;
 
+// Base transition config
+const springTransition = {
+  type: "spring",
+  stiffness: 300,
+  damping: 30,
+};
+
 const cardVariants = {
+  initial: {
+    opacity: 0,
+    rotate: 0,
+    scale: 0.95,
+    x: 0,
+    y: 0,
+    transformOrigin: "center center",
+  },
   front: {
     opacity: 1,
     rotate: 0,
@@ -19,7 +34,7 @@ const cardVariants = {
   back: (i: number) => ({
     opacity: Math.max(0.3, 1 - i * 0.15),
     rotate: i * 3,
-    scale: 1,
+    scale: 1 - i * 0.02,
     x: 0,
     y: -i * 25,
     transformOrigin: "center center",
@@ -61,6 +76,19 @@ export default function Testimonials() {
   const [currentTestimonials, setCurrentTestimonials] = useState(testimonialData);
   const [exitingCardName, setExitingCardName] = useState<string | null>(null);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [hasAnimatedInView, setHasAnimatedInView] = useState(false);
+
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    if (isInView && !hasAnimatedInView) {
+      const timer = setTimeout(() => {
+        setHasAnimatedInView(true);
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [isInView, hasAnimatedInView]);
 
   const handleNext = () => {
     if (isAnimating || currentTestimonials.length === 0) return;
@@ -79,9 +107,7 @@ export default function Testimonials() {
       }
       return newStack;
     });
-    setTimeout(() => {
-      setIsAnimating(false);
-    }, ANIMATION_SETTLE_DURATION);
+    setTimeout(() => setIsAnimating(false), 300);
   };
 
   const handleAnimationComplete = (definition: any, cardName: string) => {
@@ -102,7 +128,7 @@ export default function Testimonials() {
 
   return (
     <>
-      <div className="bg-primary-dark text-white text-center pb-40 pt-20 flex flex-col items-center">
+      <div ref={ref} className="bg-primary-dark text-white text-center pb-40 pt-20 flex flex-col items-center">
 
         <Heading level={3} as="h2" className="text-center text-white mb-40">What people are saying</Heading>
 
@@ -127,6 +153,13 @@ export default function Testimonials() {
                 animateState = "front";
               }
 
+              const initialDelay = !hasAnimatedInView ? (isFrontCard ? 1 : 1 + index * 0.05) : 0;
+
+              const currentTransition = {
+                ...springTransition,
+                ...(animateState !== 'exitingToBottom' && { delay: initialDelay })
+              };
+
               return (
                 <motion.div
                   key={testimonial.name}
@@ -135,13 +168,10 @@ export default function Testimonials() {
                   className={`w-full h-full ${CARD_BACKGROUND_COLOR} p-[4rem] rounded-3xl flex flex-col justify-center absolute top-0 left-0 cursor-grab`}
                   style={{ zIndex }}
                   variants={cardVariants}
-                  animate={animateState}
+                  initial="initial"
+                  animate={isInView ? animateState : "initial"}
                   custom={index}
-                  transition={{
-                    type: "spring",
-                    stiffness: 300,
-                    damping: 30,
-                  }}
+                  transition={currentTransition}
                   onAnimationComplete={(definition) => handleAnimationComplete(definition, testimonial.name)}
                 >
                   <div className="flex flex-col items-start text-left">
