@@ -3,7 +3,7 @@
 import { Heading } from '@/components/typography';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Button } from '@/components/Button';
+import { AnimatedButton } from '@/components/AnimatedButton';
 
 const texts = ["For Customers", "For Users", "For Partners"];
 
@@ -44,9 +44,9 @@ export const Hero = () => {
       </Heading>
 
       <div className="mt-10">
-        <Button variant="ghost" size="large">
+        <AnimatedButton variant="ghost" size="large">
           Book a Demo
-        </Button>
+        </AnimatedButton>
       </div>
     </div>
   );

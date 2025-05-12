@@ -111,7 +111,7 @@ export default function Crowdplay() {
       className="bg-primary-dark text-white pt-[100px] pb-[20rem] relative"
       style={{ isolation: 'isolate' as any }}
     >        
-      <Section className="mx-auto py-4 relative pt-[400px]">
+      <Section className="container mx-auto py-4 relative pt-[30rem]">
         <motion.div
           initial={{ opacity: 0, x: 100, filter: 'blur(16px)' }}
           whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
@@ -129,12 +129,20 @@ export default function Crowdplay() {
         </div>
           
         <BlurredSphere 
+          color="bg-accent"
+          size="w-[40rem] h-[40rem]"
+          opacity="opacity-70"
+          blur="blur-[10rem]"
+          position="absolute -top-[10rem] -right-[10rem]"
+          zIndex="z-0"
+        />
+
+        <BlurredSphere 
           color="bg-primary"
-          size="w-[500px] h-[500px]"
+          size="w-[20rem] h-[20rem]"
           opacity="opacity-60"
-          blur="blur-[150px]"
-          position="absolute -top-[5%] -right-[60%]"
-          transform="transform -translate-x-1/2 -translate-y-1/4"
+          blur="blur-[6rem]"
+          position="absolute top-[20rem] -right-[20rem]"
           zIndex="z-0"
         />
           
@@ -143,7 +151,7 @@ export default function Crowdplay() {
           size="w-[500px] h-[500px]"
           opacity="opacity-60"
           blur="blur-[150px]"
-          position="absolute -top-[5%] -left-[30%]"
+          position="absolute top-[5%] -left-[30%]"
           transform="transform -translate-x-1/2 -translate-y-1/4"
           zIndex="z-0"
           />
