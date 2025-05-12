@@ -14,7 +14,7 @@ const Platforms = () => {
   // We might need useTransform later if we want to animate based on scrollYProgress
 
   return (
-    <div ref={containerRef} className="relative h-[400vh]"> {/* Ensure this is the scrollable container */}
+    <div ref={containerRef} className="relative h-[500vh]"> {/* Ensure this is the scrollable container */}
       <motion.div 
         style={{ 
           position: 'sticky', 
@@ -33,7 +33,7 @@ const Platforms = () => {
 
       {/* This div is outside the sticky element, but within the scrollable container */}
       {/* It will appear after the 400vh scroll */}
-      <div className="w-full absolute bottom-0"> {/* Positioned at the bottom of the 400vh container */}
+      <div className="w-full absolute bottom-0">
         <img src="/bgShape.svg" className="w-full" />
       </div>
     </div>

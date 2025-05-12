@@ -9,7 +9,7 @@ interface SpinnerProps {
 }
 
 const Spinner = ({ parentScrollYProgress }: SpinnerProps) => {
-  const scrollDrivenRotate = useTransform(parentScrollYProgress, [0, 1], [0, 230]);
+  const scrollDrivenRotate = useTransform(parentScrollYProgress, [0, 0.7, 1], [0, 230, 230]);
 
   const NUM_CARDS = 6;
   const RADIUS_VW_PERCENTAGE = 60;
@@ -45,10 +45,9 @@ const Spinner = ({ parentScrollYProgress }: SpinnerProps) => {
   return (
     <div 
       style={{
-        height: '180vh', 
         position: 'relative',
         right: '-90%',
-        top: '20vh'
+        top: '50vh'
       }}
     >
       <motion.div
@@ -58,7 +57,6 @@ const Spinner = ({ parentScrollYProgress }: SpinnerProps) => {
           height: '100%',
           rotate: scrollDrivenRotate,
           position: 'sticky',
-          top: '50vh',
           y: '-50%',
         }}
       >
