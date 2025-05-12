@@ -61,7 +61,7 @@ const AnimatedButton = React.forwardRef<HTMLButtonElement, AnimatedButtonProps>(
               // Loop sequence: hoverY -> hoverY-2 -> hoverY+2 -> hoverY
               y: [config.hoverY, config.hoverY - 2, config.hoverY + 2, config.hoverY],
               transition: {
-                delay: 0.1, // Pause after spring completes
+                delay: 0.1 + index * 0.03, // Staggered pause after spring completes
                 duration: 1.5, // Duration for one full up/down cycle
                 ease: "easeInOut", 
                 repeat: Infinity, 
