@@ -43,9 +43,9 @@ const Platforms = () => {
 
   return (
     <>
-      {/*<div className="relative -bottom-[50vh] max-w-5xl mx-auto">
+      <div className="max-w-5xl mx-auto mt-[20vh]">
         <Heading as="h2" className="text-center">Focused on building exceptional <span className="text-primary">Loyalty experiences</span></Heading>
-      </div>*/}
+      </div>
       <div ref={containerRef} className="relative h-[800vh]"> {/* Ensure this is the scrollable container */}
         <motion.div 
           style={{ 

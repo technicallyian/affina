@@ -4,6 +4,7 @@ import { Section } from '@/components/Section';
 import { Heading, Text } from '@/components/typography';
 import { motion, useScroll, useTransform, useInView } from 'motion/react';
 import { useRef, useState } from 'react';
+import Image from 'next/image'; // Import next/image
 // import { IPhone } from './components/iPhone'; // No longer directly used here
 import { BlurredSphere } from '@/components/BlurredSphere';
 import { Button } from '@/components/Button';
@@ -19,9 +20,7 @@ export default function Crowdplay() {
   });
 
   // State to control starburst animation
-  const [headingAnimationComplete, setHeadingAnimationComplete] = useState(false);
   const starburstContainerRef = useRef<HTMLDivElement>(null); // Ref for starburst container
-  const isStarburstInView = useInView(starburstContainerRef, { once: false, amount: 0.1 }); // Detect if starburst container is in view
 
   // Parallax effect: Move slower than scroll, staying static initially
   const y = useTransform(scrollYProgress, [0, 0.3, 1], ['0%', '-50%', '-50%']);
@@ -32,17 +31,15 @@ export default function Crowdplay() {
     {
       id: 'lorem1',
       content: (
-        <Text as="p" className="text-sm text-gray-700">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </Text>
+        <Image src="/homepage/76ers/ticketmaster.png" alt="Sign in with Ticketmaster" width={336} height={153} className="rounded-xl shadow-xl"/>
       ),
       positionStyles: {
-        top: '100px',
-        left: '-100px',
+        top: '10rem',
+        left: '-15rem',
         transform: 'translate(-50%, -60%)',
-        width: '280px',
+        width: '336px',
       },
-      className: "bg-white rounded-lg p-4 text-black shadow-xl backdrop-blur-md",
+      className: "rounded-xl shadow-xl",
       motionProps: {
         initial: { opacity: 0, x: 50 },
         whileInView: { opacity: 1, x: 0 },
@@ -53,19 +50,17 @@ export default function Crowdplay() {
     {
       id: 'lorem2',
       content: (
-        <Text as="p" className="text-xs text-gray-600">
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
-        </Text>
+        <Image src="/homepage/76ers/76ers-press-conference.png" alt="76ers Press Conference" width={250} height={210} className="rounded-xl shadow-xl"/>
       ),
       positionStyles: {
-        top: '15%',
-        right: '5%',
+        top: '3.5rem',
+        right: '-13rem',
         transform: 'translateY(-50%)',
-        width: '200px',
+        width: '250px',
       },
-      className: "bg-white rounded-lg p-3 text-black shadow-lg backdrop-blur-sm",
+      className: "rounded-xl shadow-xl",
       motionProps: {
-        initial: { opacity: 0, x: 50 },
+        initial: { opacity: 0, x: -50 },
         whileInView: { opacity: 1, x: 0 },
         viewport: { once: false, amount: 0.6 },
         transition: { duration: 0.5 } 
@@ -74,16 +69,14 @@ export default function Crowdplay() {
     {
       id: 'lorem3',
       content: (
-        <Text as="p" className="text-sm text-gray-700">
-          Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur.
-        </Text>
+        <Image src="/homepage/76ers/scan.png" alt="Scan QR Code" width={230} height={275} className="rounded-xl shadow-xl"/>
       ),
       positionStyles: {
-        bottom: '10%',
-        left: '5%',
-        width: '240px',
+        bottom: '10rem',
+        left: '-9rem',
+        width: '230px',
       },
-      className: "bg-white rounded-lg p-4 text-black shadow-xl backdrop-blur-md",
+      className: "rounded-xl shadow-xl",
       motionProps: {
         initial: { opacity: 0, y: 50 },
         whileInView: { opacity: 1, y: 0 },
@@ -109,7 +102,7 @@ export default function Crowdplay() {
         initial: { opacity: 0, x: -50 },
         whileInView: { opacity: 1, x: 0 },
         viewport: { once: false, amount: 0.5 },
-        transition: { duration: 0.5 } // Delay is now handled by DynamicIPhoneWithContent
+        transition: { duration: 0.5 } 
       }
     }
   ];
@@ -120,56 +113,14 @@ export default function Crowdplay() {
     <div 
       className="bg-primary-dark text-white pt-[100px] pb-[20rem] relative"
       style={{ isolation: 'isolate' as any }}
-    >
-        
-      {/*<div className="flex justify-center items-start gap-[100px] absolute top-0 left-1/2 transform -translate-x-1/2">
-        <div
-          className="bg-white relative z-50"
-          style={{
-            width: 'calc(100vw - 100px)',
-            height: 'calc((100vw - 100px) * 0.3)',
-            minWidth: '100px',
-            borderTopLeftRadius: 0,
-            borderTopRightRadius: 0,
-            borderBottomLeftRadius: '50% 100%',
-            borderBottomRightRadius: '50% 100%',
-            mixBlendMode: 'destination-out' as any,
-          }}
-        />
-        <div
-          className="bg-white relative z-50"
-          style={{
-            width: 'calc(100vw - 100px)',
-            height: 'calc((100vw - 100px) * 0.3)',
-            minWidth: '100px',
-            borderTopLeftRadius: 0,
-            borderTopRightRadius: 0,
-            borderBottomLeftRadius: '50% 100%',
-            borderBottomRightRadius: '50% 100%',
-            mixBlendMode: 'destination-out' as any,
-          }}
-        />
-          
-        <BlurredSphere 
-          color="bg-accent"
-          size="w-[600px] h-[600px]"
-          opacity="opacity-40"
-          blur="blur-[100px]"
-          position="absolute -bottom-[15%] right-[25%]"
-          transform="transform -translate-x-1/2 -translate-y-1/4"
-          zIndex="z-0"
-        />
-      </div>*/}
-        
+    >        
       <Section className="mx-auto py-4 relative pt-[400px]">
-
         <motion.div
           initial={{ opacity: 0, x: 100, filter: 'blur(16px)' }}
           whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
           viewport={{ once: false, amount: 0.5 }}
           transition={{ type: "spring", duration: 2, bounce: 0.05 }}
           style={{ willChange: 'transform, opacity, filter', transform: 'translateZ(0)' }}
-          onAnimationComplete={() => setHeadingAnimationComplete(true)}
           className="relative z-10"
         >
           <Heading as="h2" level={1} className="text-center text-white relative z-10 text-[7rem]">Two Unique Platforms</Heading>
@@ -218,7 +169,7 @@ export default function Crowdplay() {
           >
             <DynamicIPhoneWithContent
               iphoneClassName="w-full relative"
-              backgroundImageUrl="/homepage/phone-bg.png"
+              backgroundImageUrl="/homepage/76ers/76ers.png"
               contentBoxes={contentBoxes}
               staggerDelaySeconds={0.15}
             />
