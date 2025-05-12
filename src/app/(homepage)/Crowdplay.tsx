@@ -16,16 +16,12 @@ export default function Crowdplay() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"] // Adjust offset as needed
+    offset: ["start end", "end start"] 
   });
 
-  // State to control starburst animation
-  const starburstContainerRef = useRef<HTMLDivElement>(null); // Ref for starburst container
-
-  // Parallax effect: Move slower than scroll, staying static initially
+  const starburstContainerRef = useRef<HTMLDivElement>(null);
   const y = useTransform(scrollYProgress, [0, 0.3, 1], ['0%', '-50%', '-50%']);
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1, 2]);
-  // const contentOpacity = useTransform(scrollYProgress, [0, 0.28, 0.3], [0, 0, 1]);
 
   const contentBoxes = [
     {
@@ -44,7 +40,7 @@ export default function Crowdplay() {
         initial: { opacity: 0, x: 50 },
         whileInView: { opacity: 1, x: 0 },
         viewport: { once: false, amount: 0.5 },
-        transition: { duration: 0.5 } // Delay is now handled by DynamicIPhoneWithContent
+        transition: { duration: 0.5 }
       }
     },
     {

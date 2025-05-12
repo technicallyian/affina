@@ -8,56 +8,49 @@ import { BlurredSphere } from '@/components/BlurredSphere';
 import { Button } from '@/components/Button';
 import { DynamicIPhoneWithContent } from './components/DynamicIPhoneWithContent'; 
 import { AnimatedNumber } from './components/AnimatedNumber'; 
+import Image from 'next/image';
 
 export default function Rethink() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"] // Adjust offset as needed
+    offset: ["start end", "end start"]
   });
 
 
-  // Parallax effect: Move slower than scroll, staying static initially
   const y = useTransform(scrollYProgress, [0, 0.3, 1], ['0%', '-50%', '-50%']);
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1, 2]);
-  // const contentOpacity = useTransform(scrollYProgress, [0, 0.28, 0.3], [0, 0, 1]);
 
   const contentBoxes = [
     {
       id: 'lorem1',
       content: (
-        <Text as="p" className="text-sm text-gray-700">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </Text>
+        <Image src="/homepage/fancash/green-chef.png" alt="Green Chef" width={289} height={315} className="rounded-xl shadow-xl"/>
       ),
       positionStyles: {
-        top: '100px',
-        left: '-100px',
-        transform: 'translate(-50%, -60%)',
-        width: '280px',
+        top: '0',
+        right: '-10rem',
+        width: '289px',
       },
-      className: "bg-white rounded-lg p-4 text-black shadow-xl backdrop-blur-md",
+      className: "",
       motionProps: {
         initial: { opacity: 0, x: 50 },
         whileInView: { opacity: 1, x: 0 },
         viewport: { once: false, amount: 0.5 },
-        transition: { duration: 0.5 } // Delay is now handled by DynamicIPhoneWithContent
+        transition: { duration: 0.5 }
       }
     },
     {
       id: 'lorem2',
       content: (
-        <Text as="p" className="text-xs text-gray-600">
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
-        </Text>
+        <Image src="/homepage/fancash/nordstrom.png" alt="Nordstrom" width={185} height={200} className="rounded-xl shadow-xl"/>
       ),
       positionStyles: {
-        top: '15%',
-        right: '5%',
-        transform: 'translateY(-50%)',
-        width: '200px',
+        bottom: '17.5rem',
+        left: '-9.3rem',
+        width: '185px',
       },
-      className: "bg-white rounded-lg p-3 text-black shadow-lg backdrop-blur-sm",
+      className: "rounded-xl shadow-xl",
       motionProps: {
         initial: { opacity: 0, x: 50 },
         whileInView: { opacity: 1, x: 0 },
@@ -68,42 +61,37 @@ export default function Rethink() {
     {
       id: 'lorem3',
       content: (
-        <Text as="p" className="text-sm text-gray-700">
-          Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur.
-        </Text>
+        <Image src="/homepage/fancash/claires.png" alt="Claires" width={185} height={200} className="rounded-xl shadow-xl"/>
       ),
       positionStyles: {
-        bottom: '10%',
-        left: '5%',
-        width: '240px',
+        bottom: '4rem',
+        left: '-9.3rem',
+        width: '185px',
       },
-      className: "bg-white rounded-lg p-4 text-black shadow-xl backdrop-blur-md",
+      className: "rounded-xl shadow-xl",
       motionProps: {
         initial: { opacity: 0, y: 50 },
         whileInView: { opacity: 1, y: 0 },
         viewport: { once: false, amount: 0.4 },
-        transition: { duration: 0.5 } // Delay is now handled by DynamicIPhoneWithContent
+        transition: { duration: 0.5 } 
       }
     },
     {
       id: 'lorem4',
       content: (
-        <Text as="p" className="text-xs text-gray-600">
-          Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.
-        </Text>
+        <Image src="/homepage/fancash/categories.png" alt="Categories" width={144} height={133}/>
       ),
       positionStyles: {
-        top: '70%',
-        left: 'calc(50% + 40px)',
-        transform: 'translate(-50%, -50%)',
-        width: '220px',
+        bottom: '15.9rem',
+        right: '-3.45rem',
+        width: '144px',
       },
-      className: "bg-white rounded-md p-3 text-black shadow-lg backdrop-blur-sm",
+      className: "",
       motionProps: {
-        initial: { opacity: 0, x: -50 },
+        initial: { opacity: 0, x: 50 },
         whileInView: { opacity: 1, x: 0 },
         viewport: { once: false, amount: 0.5 },
-        transition: { duration: 0.5 } // Delay is now handled by DynamicIPhoneWithContent
+        transition: { duration: 0.5 }
       }
     }
   ];
@@ -122,7 +110,7 @@ export default function Rethink() {
           >
             <DynamicIPhoneWithContent
               iphoneClassName="w-full relative"
-              backgroundImageUrl="/homepage/phone-bg.png"
+              backgroundImageUrl="/homepage/fancash/fancash.png"
               contentBoxes={contentBoxes}
               staggerDelaySeconds={0.15}
             />

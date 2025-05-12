@@ -4,7 +4,7 @@ import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, MotionValue, useTransform } from 'motion/react';
 import Spinner from './components/Spinner';
 import { Heading } from '@/components/typography';
-import { Smartphone, Tablet, Laptop, Tv, Watch, Server } from 'lucide-react'; // Import icons
+import { Smartphone, Tablet, Laptop, Tv, Watch, Server } from 'lucide-react';
 
 const platformData = [
   { id: 1, icon: Smartphone, title: "Mobile First", description: "Engage users seamlessly on any device." },
@@ -16,13 +16,13 @@ const platformData = [
 ];
 
 const NUM_PLATFORMS = platformData.length;
-const SCROLL_RANGE_END = 0.85; // Sync with Spinner rotation end
+const SCROLL_RANGE_END = 0.85;
 
 const Platforms = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress }: { scrollYProgress: MotionValue<number> } = useScroll({
     target: containerRef,
-    offset: ['start start', 'end end'], // Stick from the start of the container to the end
+    offset: ['start start', 'end end'], 
   });
 
   const [activeIndex, setActiveIndex] = useState(0);
@@ -35,33 +35,29 @@ const Platforms = () => {
       setActiveIndex(newActiveIndex);
     });
 
-    // Cleanup subscription on component unmount
     return () => unsubscribe();
-  }, [scrollYProgress]); // Dependency array includes scrollYProgress
-
-  // We might need useTransform later if we want to animate based on scrollYProgress
+  }, [scrollYProgress]); 
 
   return (
     <>
       <div className="max-w-5xl mx-auto mt-[20vh]">
         <Heading as="h2" className="text-center">Focused on building exceptional <span className="text-primary">Loyalty experiences</span></Heading>
       </div>
-      <div ref={containerRef} className="relative h-[800vh]"> {/* Ensure this is the scrollable container */}
+      <div ref={containerRef} className="relative h-[800vh]">
         <motion.div 
           style={{ 
             position: 'sticky', 
-            top: 0, // Stick to the top of the viewport
-            // We can adjust 'top' if there's a header/navbar, e.g., top: 'var(--header-height)'
+            top: 0,
           }}
-          className="h-screen" // The sticky element itself should probably have a defined height, e.g., screen height
+          className="h-screen"
         >
           <div className="grid grid-cols-2 h-full items-center">
-            <div className="flex flex-col justify-center items-center pl-16 h-full relative"> {/* Use relative for absolute positioning of children */}
+            <div className="flex flex-col justify-center items-center pl-16 h-full relative">
               {platformData.map((item, index) => (
                 <motion.div
                   key={item.id}
-                  className="text-center max-w-sm absolute w-full" // Use absolute positioning
-                  style={{ left: '50%', x: '-50%', top: '50%', y: '-50%' }} // Center absolutely
+                  className="text-center max-w-sm absolute w-full"
+                  style={{ left: '50%', x: '-50%', top: '50%', y: '-50%' }}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: index === activeIndex ? 1 : 0 }}
                   transition={{ duration: 0.3, ease: 'easeInOut' }}
@@ -78,8 +74,6 @@ const Platforms = () => {
           </div>
         </motion.div>
 
-        {/* This div is outside the sticky element, but within the scrollable container */}
-        {/* It will appear after the 400vh scroll */}
         <div className="w-full absolute bottom-0">
           <img src="/bgShape.svg" className="w-full" />
         </div>
