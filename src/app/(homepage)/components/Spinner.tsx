@@ -2,6 +2,22 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, useTransform, MotionValue } from 'motion/react';
+import Lottie from 'lottie-react';
+import animationData1 from '../../../../public/homepage/spinner/01.json';
+import animationData2 from '../../../../public/homepage/spinner/02.json';
+import animationData3 from '../../../../public/homepage/spinner/03.json';
+import animationData4 from '../../../../public/homepage/spinner/04.json';
+import animationData5 from '../../../../public/homepage/spinner/05.json';
+import animationData6 from '../../../../public/homepage/spinner/06.json';
+
+const lottieAnimations = [
+  animationData1,
+  animationData2,
+  animationData3,
+  animationData4,
+  animationData5,
+  animationData6,
+];
 
 interface SpinnerProps {
   parentScrollYProgress: MotionValue<number>;
@@ -80,16 +96,16 @@ const Spinner = ({ parentScrollYProgress }: SpinnerProps) => {
               height: '22.5vw',
               marginLeft: '-15vw',
               marginTop: '-11.25vw',
-              backgroundColor: 'rgba(229, 231, 235, 1)',
-              padding: '1rem',
-              borderRadius: '0.5rem',
-              boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
             }}
           >
-            Card {index + 1}
+            {index < lottieAnimations.length ? (
+              <Lottie animationData={lottieAnimations[index]} loop={true} />
+            ) : (
+              `Card ${index + 1}`
+            )}
           </div>
         ))}
       </motion.div>
