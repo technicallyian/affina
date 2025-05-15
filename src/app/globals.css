@@ -26,22 +26,8 @@
   --color-background: 227 232 239; /* #E3E8EF */
   --color-background-alt: 242 245 249; /* #F2F5F9 */
   --color-card: 255 255 255; /* #ffffff */
-
-  /* Original Variables (adjust or remove if needed) */
-  /* --background: #ffffff; */ 
-  /* --foreground: #171717; */
 }
 
-/* Remove or adjust the default dark mode if not desired */
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-     You might want to define dark theme versions of your custom variables here 
-  }
-} */
-
-/* @theme inline { */
 @theme inline {
   --color-background: var(--color-background);
   --color-foreground: var(--color-foreground);

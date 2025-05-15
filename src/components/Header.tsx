@@ -11,9 +11,7 @@ const Header = () => {
         <Link href="/">
           <Logo width={110} />
         </Link>
-        <div className="bg-white/10 border border-white rounded-full">
-          <Navbar />
-        </div>     
+        <Navbar />
         <div>
           <AnimatedButton variant="ghost" size="small">
             Book a Demo

@@ -4,10 +4,9 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { motion, useInView } from "motion/react";
 import { Heading } from "@/components/typography/Heading";
+import { BlurredSphere } from "@/components/BlurredSphere";
 const CARD_BACKGROUND_COLOR = "bg-[radial-gradient(151.31%_151.31%_at_97.84%_-21.65%,#00CCA8_0%,#1B98E0_97%)]";
-const ANIMATION_SETTLE_DURATION = 700;
 
-// Base transition config
 const springTransition = {
   type: "spring",
   stiffness: 300,
@@ -130,7 +129,7 @@ export default function Testimonials() {
     <>
       <div ref={ref} className="bg-primary-dark text-white text-center pb-40 pt-20 flex flex-col items-center">
 
-        <Heading level={3} as="h2" className="text-center text-white mb-40">What people are saying</Heading>
+        <Heading level={3} as="h2" className="text-center text-white mb-40 relative z-10">What people are saying</Heading>
 
         <div className="flex items-center justify-center space-x-4">
           <button
@@ -142,6 +141,15 @@ export default function Testimonials() {
             <ChevronLeft size={32} />
           </button>
           <div className="relative w-[800px] aspect-[3/2]">
+            <BlurredSphere
+              color="bg-primary"
+              size="w-[50rem] h-[50rem]"
+              opacity="opacity-90"
+              blur="blur-[10rem]"
+              position="absolute top-[10rem] left-1/2"
+              transform="transform -translate-x-1/2 -translate-y-1/2"
+              zIndex="z-0"
+            />
             {currentTestimonials.map((testimonial, index) => {
               const isFrontCard = index === 0;
               const zIndex = currentTestimonials.length - index;

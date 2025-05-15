@@ -7,13 +7,13 @@ import { navItems } from './data';
 
 const navigationMenuTriggerStyle = cn(
   'group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 font-medium transition-colors focus:outline-none disabled:pointer-events-none disabled:opacity-50',
-  'text-gray-700',
+  'text-[#404f63]',
   'text-lg font-semibold leading-6 tracking-tight'
 );
 
 const Navbar = () => {
   return (
-    <NavigationMenu.Root className="relative z-[1]">
+    <NavigationMenu.Root className="relative z-[1] bg-white/10 border border-white rounded-full p-2">
       <NavigationMenu.List className="flex items-center gap-4 list-none m-0 p-1">
         {navItems.map((item) => (
           <NavigationMenu.Item key={item.label}>
@@ -30,7 +30,7 @@ const Navbar = () => {
                 <NavigationMenu.Trigger className={cn(navigationMenuTriggerStyle, 'flex items-center gap-1')}>
                   {item.label}
                   <ChevronDown
-                    className="relative top-[1px] ml-1 h-3 w-3 transition duration-200 group-data-[state=open]:rotate-180"
+                    className="relative top-[1px] ml-1 h-6 w-6 transition duration-200 group-data-[state=open]:rotate-180"
                     aria-hidden
                   />
                 </NavigationMenu.Trigger>

@@ -14,16 +14,15 @@ export interface SubNavItem {
 
 // Define the navigation data
 export const navItems: NavItem[] = [
-  { label: 'Home', href: '/' },
-  { label: 'Components', href: '/components' },
+  { label: 'Why Affina', href: '#' },
   {
-    label: 'About',
-    description: 'Placeholder text about the project.',
+    label: 'Solutions',
+    description: 'Explore our innovative solutions.',
     children: [
-      { title: 'Team', href: '#', description: 'Information about the team.' },
-      { title: 'Contact', href: '#', description: 'How to get in touch.' },
-      { title: 'Mission', href: '#', description: 'Our project goals.' },
+      { title: 'Solution One', href: '#', description: 'Description for solution one.' },
+      { title: 'Solution Two', href: '#', description: 'Description for solution two.' },
     ],
   },
+  { label: 'Company', href: '#' },
   // Add more top-level items here
 ]; 
