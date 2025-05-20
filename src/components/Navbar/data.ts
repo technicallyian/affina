@@ -16,7 +16,6 @@ export interface SubNavItem {
 
 // Define the navigation data
 export const navItems: NavItem[] = [
-  { label: 'Why Affina', href: '#' },
   {
     label: 'Solutions',
     // description: 'Explore our innovative solutions.', // Removed top-level description
