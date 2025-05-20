@@ -8,11 +8,11 @@ const Header = () => {
   return (
     <header className="py-6">
       <div className="container mx-auto px-4 flex items-center justify-between">
-        <Link href="/">
+        <Link href="/" className="relative z-50">
           <Logo width={110} />
         </Link>
         <Navbar />
-        <div>
+        <div className="relative z-50">
           <AnimatedButton variant="ghost" size="small">
             Book a Demo
           </AnimatedButton>

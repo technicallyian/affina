@@ -11,6 +11,7 @@ export interface SubNavItem {
   href: string;
   description: string;
   displayType?: 'square'; // Added for custom styling
+  logoSrc?: string; // Added for logo path
 }
 
 // Define the navigation data
@@ -20,8 +21,8 @@ export const navItems: NavItem[] = [
     label: 'Solutions',
     // description: 'Explore our innovative solutions.', // Removed top-level description
     children: [
-      { title: 'Crowdplay', href: '#', description: '', displayType: 'square' },
-      { title: 'Rethink', href: '#', description: '', displayType: 'square' },
+      { title: 'Crowdplay', href: '#', description: '', displayType: 'square', logoSrc: '/crowdplayLogo.svg' },
+      { title: 'Rethink', href: '#', description: '', displayType: 'square', logoSrc: '/rethinkLogo.svg' },
     ],
   },
   // Add more top-level items here
