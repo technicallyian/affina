@@ -10,6 +10,7 @@ export interface SubNavItem {
   title: string;
   href: string;
   description: string;
+  displayType?: 'square'; // Added for custom styling
 }
 
 // Define the navigation data
@@ -17,12 +18,11 @@ export const navItems: NavItem[] = [
   { label: 'Why Affina', href: '#' },
   {
     label: 'Solutions',
-    description: 'Explore our innovative solutions.',
+    // description: 'Explore our innovative solutions.', // Removed top-level description
     children: [
-      { title: 'Solution One', href: '#', description: 'Description for solution one.' },
-      { title: 'Solution Two', href: '#', description: 'Description for solution two.' },
+      { title: 'Crowdplay', href: '#', description: '', displayType: 'square' },
+      { title: 'Rethink', href: '#', description: '', displayType: 'square' },
     ],
   },
-  { label: 'Company', href: '#' },
   // Add more top-level items here
 ]; 

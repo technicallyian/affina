@@ -3,7 +3,7 @@ import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import Link from 'next/link';
 import { ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { navItems } from './data';
+import { navItems, SubNavItem } from './data';
 
 const navigationMenuTriggerStyle = cn(
   'group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 font-medium transition-colors focus:outline-none disabled:pointer-events-none disabled:opacity-50',
@@ -34,8 +34,11 @@ const Navbar = () => {
                     aria-hidden
                   />
                 </NavigationMenu.Trigger>
-                <NavigationMenu.Content className="absolute top-0 left-0 w-full sm:w-auto">
-                  <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                <NavigationMenu.Content className="absolute top-0 left-0">
+                  <ul className={cn(
+                    "grid gap-3 p-4 md:w-[400px] lg:w-[500px]",
+                    item.description ? "lg:grid-cols-[.75fr_1fr]" : "grid-cols-2"
+                  )}>
                     {item.description && ( // Render the main description link if available
                       <li className="row-span-3">
                         <NavigationMenu.Link asChild>
@@ -55,7 +58,7 @@ const Navbar = () => {
                       </li>
                     )}
                     {item.children?.map((child) => (
-                      <ListItem key={child.title} href={child.href} title={child.title}>
+                      <ListItem key={child.title} href={child.href} title={child.title} displayType={child.displayType}>
                         {child.description}
                       </ListItem>
                     ))}
@@ -67,41 +70,40 @@ const Navbar = () => {
         ))}
 
         <NavigationMenu.Indicator className="data-[state=visible]:animate-in data-[state=hidden]:animate-out data-[state=hidden]:fade-out data-[state=visible]:fade-in top-full z-[1] flex h-[10px] items-end justify-center overflow-hidden transition-[width,transform_250ms_ease]">
-          <div className="relative top-[60%] h-[10px] w-[10px] rotate-[45deg] rounded-tl-[2px] bg-white" />
         </NavigationMenu.Indicator>
       </NavigationMenu.List>
 
-      <div className="perspective-[2000px] absolute top-full left-0 flex w-full justify-center">
-        <NavigationMenu.Viewport className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 relative mt-[10px] h-[var(--radix-navigation-menu-viewport-height)] w-full origin-[top_center] overflow-hidden rounded-[6px] bg-white transition-[width,_height] duration-300 sm:w-[var(--radix-navigation-menu-viewport-width)]" />
+      <div className="perspective-[2000px] absolute top-full left-1/2 -translate-x-1/2 flex justify-center">
+        <NavigationMenu.Viewport className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 relative mt-[10px] h-[var(--radix-navigation-menu-viewport-height)] w-[var(--radix-navigation-menu-viewport-width)] origin-[top_center] overflow-hidden rounded-3xl bg-white transition-[width,_height] duration-300" />
       </div>
     </NavigationMenu.Root>
   );
 };
 
-const ListItem = React.forwardRef<
-  HTMLAnchorElement,
-  {
-    className?: string;
-    children: React.ReactNode;
-    title: string;
-    href: string;
-  }
->(({ className, children, title, href, ...props }, forwardedRef) => (
+interface ListItemProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  className?: string;
+  children: React.ReactNode;
+  title: string;
+  href: string;
+  displayType?: 'square';
+}
+
+const ListItem = React.forwardRef<HTMLAnchorElement, ListItemProps>(
+  ({ className, children, title, href, displayType, ...props }, forwardedRef) => (
   <li>
     <NavigationMenu.Link asChild>
       <a
         href={href}
         className={cn(
           'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+          displayType === 'square' && 'aspect-square flex flex-col items-center justify-center text-center bg-primary-dark text-white hover:bg-primary-dark/90 focus:bg-primary-dark/90 rounded-3xl',
           className
         )}
         {...props}
         ref={forwardedRef}
       >
         <div className="text-sm font-medium leading-none">{title}</div>
-        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-          {children}
-        </p>
+        {children && <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">{children}</p>}
       </a>
     </NavigationMenu.Link>
   </li>

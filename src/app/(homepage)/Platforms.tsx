@@ -68,7 +68,7 @@ const Platforms = () => {
               ))}
             </div>
             <div>
-              <Spinner parentScrollYProgress={scrollYProgress} />
+              <Spinner parentScrollYProgress={scrollYProgress} activeIndex={activeIndex} />
             </div>
           </div>
         </motion.div>

@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, createRef } from 'react';
 import { motion, useTransform, MotionValue } from 'motion/react';
-import Lottie from 'lottie-react';
+import Lottie, { LottieRefCurrentProps } from 'lottie-react';
 import animationData1 from '../../../../public/homepage/spinner/01.json';
 import animationData2 from '../../../../public/homepage/spinner/02.json';
 import animationData3 from '../../../../public/homepage/spinner/03.json';
@@ -21,6 +21,7 @@ const lottieAnimations = [
 
 interface SpinnerProps {
   parentScrollYProgress: MotionValue<number>;
+  activeIndex: number;
 }
 
 const SCROLL_RANGE_END = 0.85;
@@ -28,7 +29,7 @@ const ACTIVE_CARD_TARGET_ANGLE = 180;
 const NUM_CARDS = 6;
 const TOTAL_ROTATION_ANGLE = 180;
 
-const Spinner = ({ parentScrollYProgress }: SpinnerProps) => {
+const Spinner = ({ parentScrollYProgress, activeIndex }: SpinnerProps) => {
   const scrollDrivenRotate = useTransform(
     parentScrollYProgress, 
     [0, SCROLL_RANGE_END], 
@@ -38,6 +39,7 @@ const Spinner = ({ parentScrollYProgress }: SpinnerProps) => {
 
   const RADIUS_VW_PERCENTAGE = 60;
   const [dynamicRadiusPx, setDynamicRadiusPx] = useState(0);
+  const lottieRefs = useRef(Array.from({ length: NUM_CARDS }, () => createRef<LottieRefCurrentProps>()));
 
   useEffect(() => {
     const calculatePixelRadius = () => {
@@ -49,6 +51,19 @@ const Spinner = ({ parentScrollYProgress }: SpinnerProps) => {
     window.addEventListener('resize', calculatePixelRadius);
     return () => window.removeEventListener('resize', calculatePixelRadius);
   }, [RADIUS_VW_PERCENTAGE]);
+
+  useEffect(() => {
+    lottieRefs.current.forEach((refObject, idx) => {
+      const lottieInstance = refObject.current;
+      if (lottieInstance) {
+        if (idx === activeIndex) {
+          lottieInstance.play();
+        } else {
+          lottieInstance.pause();
+        }
+      }
+    });
+  }, [activeIndex]);
 
   const START_ANGLE_DEGREES = ACTIVE_CARD_TARGET_ANGLE;
   const ANGLE_STEP_DEGREES = -TOTAL_ROTATION_ANGLE / (NUM_CARDS - 1);
@@ -102,7 +117,12 @@ const Spinner = ({ parentScrollYProgress }: SpinnerProps) => {
             }}
           >
             {index < lottieAnimations.length ? (
-              <Lottie animationData={lottieAnimations[index]} loop={true} />
+              <Lottie 
+                lottieRef={lottieRefs.current[index]}
+                animationData={lottieAnimations[index]} 
+                loop={index === activeIndex}
+                autoplay={false}
+              />
             ) : (
               `Card ${index + 1}`
             )}
