@@ -55,9 +55,16 @@ const GradientDefinitions = () => (
 interface AnimatedStarburstProps {
   className?: string;
   strokeWidth?: string;
+  isDrawing?: boolean;
+  onAnimationComplete?: () => void;
 }
 
-export const AnimatedStarburst = ({ className, strokeWidth }: AnimatedStarburstProps) => {
+export const AnimatedStarburst = ({
+  className,
+  strokeWidth,
+  isDrawing = true,
+  onAnimationComplete,
+}: AnimatedStarburstProps) => {
   const currentStrokeWidth = strokeWidth || originalStrokeWidth;
   return (
     <motion.svg
@@ -66,11 +73,11 @@ export const AnimatedStarburst = ({ className, strokeWidth }: AnimatedStarburstP
       xmlns="http://www.w3.org/2000/svg"
       className={className}
       animate={{
-        rotate: 360,
+        rotate: isDrawing ? 360 : undefined,
       }}
       transition={{
-        duration: 60, // Duration for one full rotation (in seconds)
-        repeat: Infinity,
+        duration: 60,
+        repeat: isDrawing ? Infinity : 0,
         ease: 'linear',
       }}
     >
@@ -79,12 +86,22 @@ export const AnimatedStarburst = ({ className, strokeWidth }: AnimatedStarburstP
       </defs>
 
       {starburstPathData.map((pathData, index) => (
-        <path
+        <motion.path
           key={`visible-${index}`}
           d={pathData.d}
           stroke={pathData.strokeUrl}
           strokeWidth={currentStrokeWidth}
           fill="none"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{
+            pathLength: isDrawing ? 1 : 0,
+            opacity: isDrawing ? 1 : 0,
+          }}
+          transition={{
+            pathLength: { duration: 1.5, ease: "easeInOut" },
+            opacity: { duration: 0.5, ease: "easeInOut" },
+          }}
+          onAnimationComplete={index === starburstPathData.length - 1 ? onAnimationComplete : undefined}
         />
       ))}
     </motion.svg>
