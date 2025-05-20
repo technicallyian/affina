@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heading, Text } from '@/components/typography';
+import { Text } from '@/components/typography';
 
 interface FeatureCardProps {
   title?: string;

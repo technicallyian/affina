@@ -40,7 +40,7 @@ const Heading: React.FC<HeadingProps> = ({
   className,
   ...props
 }) => {
-  const Component = as ?? (`h${level}` as keyof JSX.IntrinsicElements);
+  const Component: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' = as ?? `h${level}`;
   const sizeClass = headingSizeClasses[level];
   const weightClass = fontWeightClasses[weight];
   const finalColorClass = color ? colorClasses[color] : colorClasses['primary-dark'];

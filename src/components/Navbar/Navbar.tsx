@@ -5,7 +5,7 @@ import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import Link from 'next/link';
 import { ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { navItems, SubNavItem } from './data';
+import { navItems } from './data';
 import { motion, AnimatePresence } from 'motion/react';
 
 const navigationMenuTriggerStyle = cn(
@@ -55,7 +55,7 @@ const Navbar = () => {
                       {item.description && (
                         <li className="row-span-3">
                           <NavigationMenu.Link asChild>
-                            <a
+                            <Link
                               className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
                               href="/"
                             >
@@ -65,7 +65,7 @@ const Navbar = () => {
                               <p className="text-sm leading-tight text-muted-foreground">
                                 {item.description}
                               </p>
-                            </a>
+                            </Link>
                           </NavigationMenu.Link>
                         </li>
                       )}

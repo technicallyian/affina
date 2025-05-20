@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, type HTMLMotionProps, useAnimationControls, AnimatePresence } from 'motion/react';
-import { cva, type VariantProps } from 'class-variance-authority';
+import { type VariantProps } from 'class-variance-authority';
 import { clsx } from 'clsx';
 import { buttonVariants } from './Button';
 import AffinaIcon from './icons/AffinaIcon';
@@ -42,13 +42,12 @@ const AnimatedButton = React.forwardRef<
   AnimatedButtonProps
 >(({ className, children, variant, size, inverted, ...props }, ref) => {
   const {
-    onHoverStart,
-    onHoverEnd,
     ...restProps 
   } = props as AnimatedButtonProps & HTMLMotionProps<"button">;
 
   const currentStarConfigs = size === 'small' ? smallStarConfigs : starConfigs;
-  const starControls = currentStarConfigs.map(() => useAnimationControls());
+  const controls = useAnimationControls();
+  const starControls = currentStarConfigs.map(() => controls);
   const [isHovering, setIsHovering] = useState(false);
   const isHoveringRef = useRef(isHovering);
 

@@ -19,32 +19,57 @@ type TextSize = keyof typeof textSizeClasses;
 // type FontWeight = keyof typeof fontWeightClasses;
 // type TextColor = keyof typeof colorClasses;
 
-interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
+type AllowedTextTags = 'p' | 'span' | 'div' | 'label';
+
+// Props that are specific to our Text component
+interface CustomTextProps {
   size?: TextSize;
   weight?: FontWeight;
   color?: TextColor;
-  as?: 'p' | 'span' | 'div' | 'label';
   children: React.ReactNode;
   className?: string;
 }
 
-const Text: React.FC<TextProps> = ({
-  size = 'p2',
-  weight = 'normal', // Default to normal weight
-  color = 'foreground', // Set default color
-  as: Component = 'p',
-  children,
-  className,
-  ...props
-}) => {
-  const sizeClass = textSizeClasses[size];
-  const weightClass = fontWeightClasses[weight];
-  const colorClass = colorClasses[color]; // Apply the (default or provided) color class
+// Utility to make 'align' optional if it exists on P
+// This specifically addresses issues where @types/react might define `align` as required for HTMLParagraphElement.
+type OptionalAlign<P> = 'align' extends keyof P
+  ? Omit<P, 'align'> & { align?: P['align'] }
+  : P;
+
+// Determine the correct props type for the given tag, applying OptionalAlign for paragraphs
+type PropsForTag<T extends AllowedTextTags> = T extends 'p'
+  ? OptionalAlign<React.ComponentPropsWithoutRef<'p'>>
+  : React.ComponentPropsWithoutRef<T>;
+
+// Final TextProps type for external and internal use
+type TextProps<T extends AllowedTextTags = 'p'> = {
+  as?: T;
+} & CustomTextProps & Omit<PropsForTag<T>, keyof CustomTextProps>;
+
+const Text = <T extends AllowedTextTags = 'p'>(
+  {
+    as,
+    size = 'p2',
+    weight = 'normal',
+    color = 'foreground',
+    children,
+    className,
+    ...rest // These are the native HTML props, correctly typed by Omit<PropsForTag<T>, keyof CustomTextProps>
+  }: TextProps<T>
+) => {
+  const ComponentToRender = as || 'p';
+
+  const sizeClass = textSizeClasses[size!];
+  const weightClass = fontWeightClasses[weight!];
+  const colorClass = colorClasses[color!];
 
   return (
-    <Component className={cn('font-sans', sizeClass, weightClass, colorClass, className)} {...props}>
+    <ComponentToRender
+      className={cn('font-sans', sizeClass, weightClass, colorClass, className)}
+      {...rest as React.HTMLAttributes<HTMLElement>}
+    >
       {children}
-    </Component>
+    </ComponentToRender>
   );
 };
 

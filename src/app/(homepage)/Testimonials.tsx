@@ -109,7 +109,7 @@ export default function Testimonials() {
     setTimeout(() => setIsAnimating(false), 300);
   };
 
-  const handleAnimationComplete = (definition: any, cardName: string) => {
+  const handleAnimationComplete = (definition: string | object, cardName: string) => {
     if (definition === "exitingToBottom" && exitingCardName === cardName) {
       setCurrentTestimonials(prev => {
         const newStack = [...prev];

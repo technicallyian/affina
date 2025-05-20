@@ -21,7 +21,7 @@ const CustomCursor: React.FC = () => {
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
     };
-  }, []); // Added isVisible to dependency array
+  }, [isVisible]); // Added isVisible to dependency array
 
   return (
     <motion.div

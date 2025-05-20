@@ -2,8 +2,8 @@
 
 import { Section } from '@/components/Section';
 import { Heading, Text } from '@/components/typography';
-import { motion, useScroll, useTransform, useInView } from 'motion/react';
-import { useRef, useState } from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
+import { useRef } from 'react';
 import { BlurredSphere } from '@/components/BlurredSphere';
 import { Button } from '@/components/Button';
 import { DynamicIPhoneWithContent } from './components/DynamicIPhoneWithContent'; 

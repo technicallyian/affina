@@ -2,15 +2,14 @@
 
 import { Section } from '@/components/Section';
 import { Heading, Text } from '@/components/typography';
-import { motion, useScroll, useTransform, useInView } from 'motion/react';
-import { useRef, useState } from 'react';
-import Image from 'next/image'; // Import next/image
-// import { IPhone } from './components/iPhone'; // No longer directly used here
+import { motion, useScroll, useTransform } from 'motion/react';
+import { useRef } from 'react';
+import Image from 'next/image';
 import { BlurredSphere } from '@/components/BlurredSphere';
 import { Button } from '@/components/Button';
-import { DynamicIPhoneWithContent } from './components/DynamicIPhoneWithContent'; // Import the new component
+import { DynamicIPhoneWithContent } from './components/DynamicIPhoneWithContent';
 import { AnimatedStarburst } from './AnimatedStarburst';
-import { AnimatedNumber } from './components/AnimatedNumber'; // Import the new component
+import { AnimatedNumber } from './components/AnimatedNumber';
 
 export default function Crowdplay() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -109,7 +108,7 @@ export default function Crowdplay() {
 
     <div 
       className="bg-primary-dark text-white pt-[100px] pb-[20rem] relative"
-      style={{ isolation: 'isolate' as any }}
+      style={{ isolation: 'isolate' as const }}
     >        
       <Section className="container mx-auto py-4 relative pt-[30rem]">
         <motion.div
