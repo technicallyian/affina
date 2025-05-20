@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { BlurredSphere } from '@/components/BlurredSphere';
 import { Button } from '@/components/Button';
 import { DynamicIPhoneWithContent } from './components/DynamicIPhoneWithContent';
-import { AnimatedStarburst } from './AnimatedStarburst';
+import { AnimatedStarburst } from '../../components/AnimatedStarburst';
 import { AnimatedNumber } from './components/AnimatedNumber';
 
 export default function Crowdplay() {

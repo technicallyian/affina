@@ -54,9 +54,11 @@ const GradientDefinitions = () => (
 
 interface AnimatedStarburstProps {
   className?: string;
+  strokeWidth?: string;
 }
 
-export const AnimatedStarburst = ({ className }: AnimatedStarburstProps) => {
+export const AnimatedStarburst = ({ className, strokeWidth }: AnimatedStarburstProps) => {
+  const currentStrokeWidth = strokeWidth || originalStrokeWidth;
   return (
     <motion.svg
       viewBox="0 0 890 890"
@@ -81,7 +83,7 @@ export const AnimatedStarburst = ({ className }: AnimatedStarburstProps) => {
           key={`visible-${index}`}
           d={pathData.d}
           stroke={pathData.strokeUrl}
-          strokeWidth={originalStrokeWidth}
+          strokeWidth={currentStrokeWidth}
           fill="none"
         />
       ))}

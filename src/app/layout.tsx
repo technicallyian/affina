@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import CustomCursor from "../components/CustomCursor";
 import GlobalStyle from "../components/GlobalStyle";
 import Footer from "../components/Footer";
+import LoadingScreen from "@/components/LoadingScreen";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -35,6 +36,7 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${geistMono.variable} antialiased bg-white`}
       >
+        <LoadingScreen />
         <Header />
         <main>{children}</main>
         <Footer />
