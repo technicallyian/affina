@@ -49,7 +49,7 @@ const Navbar = () => {
                   </NavigationMenu.Trigger>
                   <NavigationMenu.Content className="absolute top-0 left-0">
                     <ul className={cn(
-                      "grid gap-3 p-4 md:w-[400px] lg:w-[500px]",
+                      "grid gap-3 p-4 w-full md:w-[400px] lg:w-[500px]",
                       item.description ? "lg:grid-cols-[.75fr_1fr]" : "grid-cols-2"
                     )}>
                       {item.description && (
@@ -142,10 +142,10 @@ const ListItem = React.forwardRef<HTMLAnchorElement, ListItemProps>(
         ref={forwardedRef}
       >
         {displayType === 'square' && logoSrc && (
-          <img src={logoSrc} alt={`${title} logo`} className="w-1/2 h-1/2 object-contain mb-2" />
+          <img src={logoSrc} alt={`${title} logo`} className="w-3/4 object-contain" />
         )}
-        <div className="text-sm font-medium leading-none">{title}</div>
-        {children && <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">{children}</p>}
+        {displayType !== 'square' && <div className="text-sm font-medium leading-none">{title}</div>}
+        {children && <p className="text-base leading-snug text-muted-foreground h-20 pt-5 font-semibold">{children}</p>}
       </a>
     </NavigationMenu.Link>
   </li>
