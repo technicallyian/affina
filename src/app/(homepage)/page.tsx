@@ -11,7 +11,7 @@ import Loyalty from './Loyalty';
 // const ThreeD = dynamic(() => import('./ThreeD'), { ssr: false });
 // const LogoSlider = dynamic(() => import('./LogoSlider'), { ssr: false }); 
 
-import DynamicClientComponents from './DynamicClientComponents';
+//import DynamicClientComponents from './DynamicClientComponents';
 import { Suspense } from 'react';
 
 export default function Home() {
