@@ -12,7 +12,7 @@ import Loyalty from './Loyalty';
 // const LogoSlider = dynamic(() => import('./LogoSlider'), { ssr: false }); 
 
 //import DynamicClientComponents from './DynamicClientComponents';
-import { Suspense } from 'react';
+//import { Suspense } from 'react';
 
 export default function Home() {
   return (
