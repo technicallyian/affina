@@ -4,6 +4,31 @@ export function DemoForm() {
   async function handleSubmit(formData: FormData) {
     "use server";
 
+    // Define interfaces for Pipedrive API responses
+    interface PipedriveOrgSearchItemDetails {
+      id: number;
+    }
+    interface PipedriveOrgSearchResultWrapper {
+      item: PipedriveOrgSearchItemDetails;
+    }
+    interface PipedriveOrgSearchResponse {
+      success?: boolean;
+      data?: {
+        items?: PipedriveOrgSearchResultWrapper[];
+      } | null;
+    }
+
+    interface PipedriveSuccessData {
+      id: number;
+    }
+    interface PipedriveCreateResponse {
+      success: boolean;
+      data?: PipedriveSuccessData;
+      // You might want to add fields for error responses, e.g.
+      // error?: string;
+      // errors?: Record<string, string>;
+    }
+
     const fullName = formData.get("fullName") as string;
     const email = formData.get("email") as string;
     const phone = formData.get("phone") as string | null;
@@ -36,7 +61,7 @@ export function DemoForm() {
         const orgSearchResponse = await fetch(
           `https://${pipedriveDomain}.pipedrive.com/api/v1/organizations/search?term=${encodeURIComponent(organization)}&exact_match=true&limit=1&api_token=${pipedriveApiKey}`
         );
-        const orgSearchData = await orgSearchResponse.json();
+        const orgSearchData: PipedriveOrgSearchResponse = await orgSearchResponse.json();
 
         if (orgSearchData.data && orgSearchData.data.items && orgSearchData.data.items.length > 0) {
           orgId = orgSearchData.data.items[0].item.id;
@@ -51,8 +76,8 @@ export function DemoForm() {
               body: JSON.stringify({ name: organization }),
             }
           );
-          const createOrgData = await createOrgResponse.json();
-          if (createOrgData.success) {
+          const createOrgData: PipedriveCreateResponse = await createOrgResponse.json();
+          if (createOrgData.success && createOrgData.data) {
             orgId = createOrgData.data.id;
           } else {
             console.error("Failed to create organization:", createOrgData);
@@ -63,7 +88,13 @@ export function DemoForm() {
       }
 
       // 2. Create Person
-      const personData: { name: string; email: string[]; phone?: string[]; org_id?: number; [key: string]: any } = {
+      const personData: { 
+        name: string; 
+        email: string[]; 
+        phone?: string[]; 
+        org_id?: number; 
+        [key: string]: string | number | boolean | string[] | number[] | null | undefined;
+      } = {
         name: fullName,
         email: [email],
       };
@@ -90,9 +121,9 @@ export function DemoForm() {
         }
       );
 
-      const createPersonData = await createPersonResponse.json();
+      const createPersonData: PipedriveCreateResponse = await createPersonResponse.json();
 
-      if (createPersonData.success) {
+      if (createPersonData.success && createPersonData.data) {
         const personId = createPersonData.data.id;
         console.log("Successfully created person:", personId);
 
@@ -121,8 +152,8 @@ export function DemoForm() {
             }),
           }
         );
-        const createNoteData = await createNoteResponse.json();
-        if (createNoteData.success) {
+        const createNoteData: PipedriveCreateResponse = await createNoteResponse.json();
+        if (createNoteData.success && createNoteData.data) {
           console.log("Successfully added note to person:", createNoteData.data.id);
           // Handle successful submission (e.g., show a success message, redirect)
         } else {
