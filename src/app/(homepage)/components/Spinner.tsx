@@ -82,12 +82,7 @@ const Spinner = ({ parentScrollYProgress, activeIndex }: SpinnerProps) => {
   });
 
   return (
-    <div 
-      style={{
-        position: 'relative',
-        right: '-90%',
-        top: '0'
-      }}
+    <div className="relative top-0 -right-[110%] 2xl:-right-[100%] 3xl:-right-[110%]"
     >
       <motion.div
         style={{

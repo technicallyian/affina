@@ -25,9 +25,9 @@ export const Hero = () => {
   };
 
   return (
-    <div className="py-40">
-      <Heading as="h1" className="text-[130px] !leading-[130px]">
-        Loyalty & Engagement <br />
+    <div className="lg:py-24 xl:py-28 2xl:py-40">
+      <Heading as="h1" className="lg:text-[5rem] lg:!leading-[5rem] xl:text-[6.5rem] xl:!leading-[6rem] 2xl:text-[9rem] 2xl:!leading-[8.5rem]">
+        Loyalty & <br />Engagement <br />
         <AnimatePresence mode="wait">
           <motion.span
             key={texts[index]}

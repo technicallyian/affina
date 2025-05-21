@@ -24,9 +24,17 @@ export default function Crowdplay() {
 
   const contentBoxes = [
     {
-      id: 'lorem1',
+      id: 'ticketmaster',
       content: (
-        <Image src="/homepage/76ers/ticketmaster.png" alt="Sign in with Ticketmaster" width={336} height={153} className="rounded-xl shadow-xl"/>
+        <div className="relative w-[336px] h-[153px]">
+          <Image
+            src="/homepage/76ers/ticketmaster.png"
+            alt="Sign in with Ticketmaster"
+            layout="fill"
+            objectFit="contain"
+            className="rounded-xl shadow-xl"
+          />
+        </div>
       ),
       positionStyles: {
         top: '10rem',
@@ -119,7 +127,7 @@ export default function Crowdplay() {
           style={{ willChange: 'transform, opacity, filter', transform: 'translateZ(0)' }}
           className="relative z-10"
         >
-          <Heading as="h2" level={1} className="text-center text-white relative z-10 text-[7rem]">Two Unique Platforms</Heading>
+          <Heading as="h2" level={1} className="text-center text-white relative z-10 xl:text-[6rem] 2xl:text-[7rem]">Two Unique Platforms</Heading>
         </motion.div>
         <div ref={starburstContainerRef} className="absolute top-0 -left-[400px] w-full h-full">
           <AnimatedStarburst
@@ -165,10 +173,10 @@ export default function Crowdplay() {
           zIndex="z-0"
         />
 
-        <div ref={containerRef} className="mt-[40rem] text-center iphone-container relative h-[2000px]">
-          <img src="/crowdplayLogo.svg" alt="Crowdplay Logo" className="w-[900px] mx-auto mb-[300px]"/>
+        <div ref={containerRef} className="mt-[50vh] text-center iphone-container relative h-[250vh]">
+          <img src="/crowdplayLogo.svg" alt="Crowdplay Logo" className="w-[60vw] mx-auto mb-[20vh]"/>
           <motion.div 
-            className="w-[400px] mx-auto sticky top-1/2 z-10 mt-12" 
+            className="xl:w-[350px] 2xl:w-[400px] mx-auto sticky top-1/2 z-10 mt-12" 
             style={{ y, scale }}
           >
             <DynamicIPhoneWithContent

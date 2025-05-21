@@ -6,6 +6,7 @@ import CustomCursor from "../components/CustomCursor";
 import GlobalStyle from "../components/GlobalStyle";
 import Footer from "../components/Footer";
 import LoadingScreen from "@/components/LoadingScreen";
+import { BreakpointIndicator } from "@/components/BreakpointIndicator";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -41,6 +42,7 @@ export default function RootLayout({
         <main>{children}</main>
         <Footer />
         <CustomCursor />
+        <BreakpointIndicator />
       </body>
     </html>
   );
