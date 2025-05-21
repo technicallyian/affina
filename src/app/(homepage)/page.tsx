@@ -1,5 +1,5 @@
-import { Section } from '@/components/Section';
-import { Hero } from './Hero';
+//import { Section } from '@/components/Section';
+//import { Hero } from './Hero';
 import Platforms from './Platforms';
 import Crowdplay from './Crowdplay';
 import Rethink from './Rethink';
