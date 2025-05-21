@@ -9,6 +9,11 @@ import { Section } from '@/components/Section';
 import ThreeD from './ThreeD';
 import LogoSlider from './LogoSlider';
 
+//import dynamic from 'next/dynamic';
+
+//const Platforms = dynamic(() => import('./Platforms'), { ssr: false });
+import ClientDynamicPlatforms from './ClientDynamicPlatforms';
+
 export default function Home() {
   return (
     <>
@@ -18,7 +23,7 @@ export default function Home() {
       </Section>
       <ThreeD />
       <LogoSlider />
-      {/*<Platforms />*/} 
+      <ClientDynamicPlatforms /> 
       <Crowdplay /> 
       <Rethink />
       <WhyAffina />
